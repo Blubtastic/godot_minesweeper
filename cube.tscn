@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnor6jdbe28rj"]
+
+[ext_resource type="Script" path="res://cube_logic.gd" id="1_nu0u4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
+albedo_color = Color(0.42365, 0.423651, 0.423651, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_48bt1"]
+material = SubResource("StandardMaterial3D_cu7mv")
+
+[node name="Cube" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+script = ExtResource("1_nu0u4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_aokb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_48bt1")

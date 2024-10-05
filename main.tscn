@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3s8hwqh7o2l1"]
+
+[ext_resource type="PackedScene" uid="uid://cnor6jdbe28rj" path="res://cube.tscn" id="2_yxq1d"]
+
+[node name="Main" type="Node"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.369925, 0.869081, -0.328412, 0.0583182, 0.331069, 0.941803, 0.92723, -0.367548, 0.0717875, 0, 5.19661, 5.47385)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.09771e-08, 0.770213, -0.637787, 1.52172e-08, 0.637787, 0.770213, 1, 2.18557e-08, -3.78552e-08, -1.73887, 4.39567, 1.94845)
+fov = 60.6
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Cube" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+
+[node name="Cube2" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.5)
+
+[node name="Cube3" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 2.5)
+
+[node name="Cube4" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0.5)
+
+[node name="Cube5" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 1.5)
+
+[node name="Cube6" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 2.5)
+
+[node name="Cube7" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.480769, 0.5)
+
+[node name="Cube8" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.480769, 1.5)
+
+[node name="Cube9" parent="Node3D" instance=ExtResource("2_yxq1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.480769, 2.5)
