@@ -15,7 +15,6 @@ fov = 60.6
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="Cube" parent="Node3D" instance=ExtResource("2_yxq1d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 
 [node name="Cube2" parent="Node3D" instance=ExtResource("2_yxq1d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.5)

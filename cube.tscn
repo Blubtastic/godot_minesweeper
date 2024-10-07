@@ -1,21 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=6 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://cube_logic.gd" id="1_nu0u4"]
+[ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube_mesh.tres" id="2_l54qn"]
+[ext_resource type="BoxMesh" uid="uid://cgwn5ijek178y" path="res://cube_mesh2.tres" id="3_3llbw"]
+[ext_resource type="BoxMesh" uid="uid://bfdb1rpwdtjkb" path="res://cube_mesh3.tres" id="4_tcda0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
-albedo_color = Color(0.42365, 0.423651, 0.423651, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_48bt1"]
-material = SubResource("StandardMaterial3D_cu7mv")
-
 [node name="Cube" type="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 script = ExtResource("1_nu0u4")
+mesh1 = ExtResource("2_l54qn")
+mesh2 = ExtResource("3_3llbw")
+mesh3 = ExtResource("4_tcda0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_aokb8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_48bt1")
+mesh = ExtResource("2_l54qn")
