@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://cube_logic.gd" id="1_nu0u4"]
 [ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube_mesh.tres" id="2_l54qn"]
 [ext_resource type="BoxMesh" uid="uid://cgwn5ijek178y" path="res://cube_mesh2.tres" id="3_3llbw"]
-[ext_resource type="BoxMesh" uid="uid://bfdb1rpwdtjkb" path="res://cube_mesh3.tres" id="4_tcda0"]
+[ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://cube_mesh_flat.tres" id="5_2yjbx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
@@ -12,10 +12,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 script = ExtResource("1_nu0u4")
 mesh1 = ExtResource("2_l54qn")
 mesh2 = ExtResource("3_3llbw")
-mesh3 = ExtResource("4_tcda0")
+flatMesh = ExtResource("5_2yjbx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_aokb8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_l54qn")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
