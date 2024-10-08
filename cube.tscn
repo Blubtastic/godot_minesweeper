@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=7 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://cube_logic.gd" id="1_nu0u4"]
 [ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube_mesh.tres" id="2_l54qn"]
@@ -6,6 +6,8 @@
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://cube_mesh_flat.tres" id="5_2yjbx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_662da"]
 
 [node name="Cube" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
@@ -19,6 +21,16 @@ shape = SubResource("BoxShape3D_aokb8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_l54qn")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_662da")
+target_position = Vector3(0, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0.515925, 0)
+text = "0"
+font_size = 100
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

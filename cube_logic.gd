@@ -30,3 +30,7 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 			$MeshInstance3D.mesh = flatMesh
 			transform = transform.translated(Vector3(0,-0.1,0))
 			isTranslated = true;
+
+func _physics_process(delta: float) -> void:
+	var results = $ShapeCast3D.collision_result
+	$Label3D.text = str(results.size())
