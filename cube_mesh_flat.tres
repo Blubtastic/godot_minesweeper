@@ -2,6 +2,8 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
 albedo_color = Color(0.931641, 0.931641, 0.931641, 1)
+roughness = 0.6
+ao_enabled = true
 
 [resource]
 material = SubResource("StandardMaterial3D_cu7mv")

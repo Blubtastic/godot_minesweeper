@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 window/size/viewport_width=1350
 window/size/viewport_height=1080
 
+[global_group]
+
+cubes="All cubes of the play grid"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

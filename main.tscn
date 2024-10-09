@@ -1,16 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=5 format=3 uid="uid://d3s8hwqh7o2l1"]
 
+[ext_resource type="Script" path="res://camera_3d.gd" id="1_pyi2n"]
 [ext_resource type="Script" path="res://cube_grid.gd" id="2_oco18"]
+
+[sub_resource type="Environment" id="Environment_bmdjw"]
+background_mode = 1
+background_color = Color(0, 0.49736, 0.621094, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dxy76"]
 
 [node name="Main" type="Node"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.369925, 0.869081, -0.328412, 0.0583182, 0.331069, 0.941803, 0.92723, -0.367548, 0.0717875, 0, 5.19661, 5.47385)
+transform = Transform3D(0.280604, 0.808826, 0.516781, -0.248006, -0.459031, 0.853103, 0.92723, -0.367549, 0.0717875, 6.52331, 8.42316, 5.92853)
+light_color = Color(0.994965, 1, 0.935547, 1)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0.947769, -0.31896, 0, 0.31896, 0.947769, 1, 4.14283e-08, -1.39422e-08, 0.741, 8.838, 4.5)
 fov = 60.6
+script = ExtResource("1_pyi2n")
 
 [node name="CubeGrid" type="Node3D" parent="."]
 script = ExtResource("2_oco18")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bmdjw")
+camera_attributes = SubResource("CameraAttributesPractical_dxy76")
