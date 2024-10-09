@@ -12,4 +12,6 @@ func _physics_process(delta: float) -> void:
 	if $"..".isBomb:
 		$"../Label3D".text = '💣'
 	else:
-		$"../Label3D".text = str(get_nearby_nodes())
+		var nearbyMines = get_nearby_nodes()
+		var nearbyMinesNumber: String = str(nearbyMines) if nearbyMines > 0 else ''
+		$"../Label3D".text = nearbyMinesNumber
