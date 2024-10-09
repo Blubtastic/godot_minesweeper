@@ -8,7 +8,7 @@ func get_nearby_nodes():
 			count += 1
 	return count
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if $"..".isBomb:
 		$"../Label3D".text = '💣'
 	else:

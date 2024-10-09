@@ -10,6 +10,6 @@ func spawn_grid():
 	for i in range(GRID_SIZE):
 		for j in range(GRID_SIZE):
 			var cube_instance = CubeScene.instantiate()
-			var position = Vector3(i * CUBE_DISTANCE, 0, j * CUBE_DISTANCE)
-			cube_instance.transform.origin = position
+			var cube_position = Vector3(i * CUBE_DISTANCE, 0, j * CUBE_DISTANCE)
+			cube_instance.transform.origin = cube_position
 			add_child(cube_instance)
