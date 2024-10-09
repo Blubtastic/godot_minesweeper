@@ -3,3 +3,4 @@
 /android/
 *.translation
 .DS_Store
+.vscode/
