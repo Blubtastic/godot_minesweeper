@@ -4,11 +4,10 @@ const colors = [
 	Color(0, 0.5, 0),
 	Color(1,0,0),
 	Color(0,0,0.5),
-	Color(0.5,0.5,0),
+	Color(0.3, 0.05, 0),
 	Color(0,0.4,0.5),
 	Color(0,0,0),
-	Color(0,0,0),
-	Color(0,0,0), 
+	Color(0.5,0.5,0.5)
 ]
 
 func get_nearby_mine_count():
@@ -34,5 +33,6 @@ func _physics_process(_delta: float) -> void:
 				cube.reveal_cube()
 	else:
 		$"../Label3D".text = nearbyMinesNumber
-		$"../Label3D".modulate = colors[nearbyMines-1]
-		$"../Label3D".outline_modulate = colors[nearbyMines-1]
+		var index = nearbyMines - 1 if nearbyMines < colors.size()-1 else 0
+		$"../Label3D".modulate = colors[index]
+		$"../Label3D".outline_modulate = colors[index]
