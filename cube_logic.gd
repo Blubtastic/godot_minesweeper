@@ -6,7 +6,8 @@ extends StaticBody3D
 @export var radioactiveMesh: Mesh
 
 var isRevealed: bool = false
-var isBomb: int
+var is_bomb: int
+var bomb_probability = 0.2
 
 var simulate_gravity = false
 var velocity = Vector3.ZERO
@@ -15,8 +16,8 @@ var gravity = Vector3.DOWN * 9.8
 signal game_over
 
 func _ready() -> void:
-	isBomb = randi() % 2
-	var selectedMesh = [mesh1, mesh2][isBomb]
+	is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
+	var selectedMesh = mesh1
 	
 	# duplicate meshes and materials 
 	$MeshInstance3D.mesh = selectedMesh.duplicate()
@@ -32,17 +33,17 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 		if event is InputEventMouseButton:
 			unhighlight_cube()
 			reveal_cube()
-			if isBomb:
+			if is_bomb:
 				animateExplosion()
 
 func reveal_cube():
 	if !isRevealed:
-		var newMesh = bombMesh if isBomb else flatMesh
+		var newMesh = bombMesh if is_bomb else flatMesh
 		$MeshInstance3D.mesh = newMesh
 		transform = transform.translated(Vector3(0, -0.1, 0))
 		$Label3D.visible = true
 		isRevealed = true;
-		if isBomb:
+		if is_bomb:
 			game_over.emit()
 
 func animateExplosion():

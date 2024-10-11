@@ -12,7 +12,7 @@ background_color = Color(0, 0.49736, 0.621094, 1)
 [node name="Main" type="Node"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.280604, 0.808826, 0.516781, -0.248006, -0.459031, 0.853103, 0.92723, -0.367549, 0.0717875, 6.52331, 8.42316, 5.92853)
+transform = Transform3D(0.677611, 0.409652, 0.61076, -0.23637, -0.66511, 0.708349, 0.696399, -0.62435, -0.353857, 43.912, 17.484, 1.04162)
 light_color = Color(0.994965, 1, 0.935547, 1)
 shadow_enabled = true
 

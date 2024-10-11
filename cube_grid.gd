@@ -4,7 +4,7 @@ const CubeScene = preload("res://cube.tscn")
 const GRID_SIZE = 10
 const CUBE_DISTANCE = 1.0
 const drop_increase = 1
-var drop_intensity = 2
+var drop_intensity = 1.5
 var game_over = false
 var nodes
 
