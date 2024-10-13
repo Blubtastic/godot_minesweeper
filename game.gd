@@ -1,7 +1,8 @@
 extends Node3D
 
 const CubeScene = preload("res://cube.tscn")
-const GRID_SIZE = 20
+const GRID_WIDTH = 30
+const GRID_HEIGHT = 16
 const CUBE_DISTANCE = 1.0
 const drop_increase = 1
 var drop_intensity = 1.5
@@ -13,10 +14,10 @@ func _ready() -> void:
 	spawn_grid()
 
 func spawn_grid():
-	for i in range(GRID_SIZE):
-		for j in range(GRID_SIZE):
+	for h in range(GRID_HEIGHT):
+		for w in range(GRID_WIDTH):
 			var cube_instance = CubeScene.instantiate()
-			var cube_position = Vector3(i * CUBE_DISTANCE, 0, j * CUBE_DISTANCE)
+			var cube_position = Vector3(h * CUBE_DISTANCE, 0, w * CUBE_DISTANCE)
 			cube_instance.transform.origin = cube_position
 			add_child(cube_instance)
 			
@@ -31,8 +32,8 @@ func _on_game_over():
 		if node and not node.is_queued_for_deletion():
 			node.reveal_cube()
 	
-	var timer = get_tree().create_timer(drop_intensity)
-	await timer.timeout
+	#var timer = get_tree().create_timer(drop_intensity)
+	#await timer.timeout
 	$"../Camera3D".start_shake(.4, 1.0)
 	
 	for node in nodes:

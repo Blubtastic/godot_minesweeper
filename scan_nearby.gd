@@ -31,8 +31,8 @@ func _physics_process(_delta: float) -> void:
 			$"../Label3D".modulate = Color(0,0,0,1)
 			for cube in cubes:
 				cube.reveal_cube()
-	else:
-		$"../Label3D".text = nearbyMinesNumber
-		var index = nearbyMines - 1 if nearbyMines < colors.size()-1 else 0
-		$"../Label3D".modulate = colors[index]
-		$"../Label3D".outline_modulate = colors[index]
+		else:
+			$"../Label3D".text = nearbyMinesNumber
+			var index = nearbyMines - 1 if nearbyMines < colors.size()-1 else 0
+			$"../Label3D".modulate = colors[index]
+			$"../Label3D".outline_modulate = colors[index]

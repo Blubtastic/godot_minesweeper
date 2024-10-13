@@ -6,8 +6,9 @@ extends StaticBody3D
 @export var radioactiveMesh: Mesh
 
 var isRevealed: bool = false
+var is_flagged: bool = false
 var is_bomb: int
-var bomb_probability = 0.2
+var bomb_probability = 0.16
 
 var simulate_gravity = false
 var velocity = Vector3.ZERO
@@ -31,10 +32,15 @@ func _physics_process(delta):
 func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if !isRevealed:
 		if event is InputEventMouseButton:
-			unhighlight_cube()
-			reveal_cube()
-			if is_bomb:
-				animateExplosion()
+			var mouse_event := event as InputEventMouseButton
+			if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+				if !is_flagged:
+					unhighlight_cube()
+					reveal_cube()
+					if is_bomb:
+						animateExplosion()
+			if mouse_event.button_index == MOUSE_BUTTON_RIGHT and mouse_event.pressed:
+				toggle_flag()
 
 func reveal_cube():
 	if !isRevealed:
@@ -45,6 +51,11 @@ func reveal_cube():
 		isRevealed = true;
 		if is_bomb:
 			game_over.emit()
+
+func toggle_flag():
+	is_flagged = !is_flagged
+	$Label3D.text = "🚩"
+	print("toggled flag")	
 
 func animateExplosion():
 	$MeshInstance3D.mesh = radioactiveMesh

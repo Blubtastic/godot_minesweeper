@@ -30,9 +30,7 @@ mesh = ExtResource("2_l54qn")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0.515925, 0)
-visible = false
 modulate = Color(0, 0, 0, 1)
-text = "0"
 font_size = 100
 
 [node name="Area3D" type="Area3D" parent="."]
