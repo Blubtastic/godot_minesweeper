@@ -43,6 +43,13 @@ script = ExtResource("2_oco18")
 environment = SubResource("Environment_bmdjw")
 camera_attributes = SubResource("CameraAttributesPractical_dxy76")
 
+[node name="WinBackground" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+offset_right = 10000.0
+offset_bottom = 10000.0
+color = Color(0, 0, 0, 0.388235)
+
 [node name="Controls" type="Label" parent="."]
 offset_left = 240.0
 offset_top = 30.0
@@ -52,7 +59,6 @@ text = "⟳: r"
 label_settings = SubResource("LabelSettings_oy0yb")
 
 [node name="Timer" type="Label" parent="."]
-z_index = 1
 offset_left = 20.0
 offset_right = 60.0
 offset_bottom = 23.0
@@ -67,9 +73,3 @@ offset_bottom = 623.0
 label_settings = SubResource("LabelSettings_6oo4t")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="WinBackground" type="ColorRect" parent="."]
-visible = false
-offset_right = 10000.0
-offset_bottom = 10000.0
-color = Color(0, 0, 0, 0.388235)

@@ -16,6 +16,7 @@ var gravity = Vector3.DOWN * 9.8
 
 signal game_over
 signal game_start
+signal cube_was_cleared
 
 func _ready() -> void:
 	is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
@@ -57,6 +58,7 @@ func reveal_cube():
 		transform = transform.translated(Vector3(0, -0.1, 0))
 		$Label3D.visible = true
 		is_cleared = true;
+		cube_was_cleared.emit()
 		if is_bomb:
 			game_over.emit()
 
