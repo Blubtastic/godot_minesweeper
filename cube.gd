@@ -30,20 +30,25 @@ func _physics_process(delta):
 		translate(velocity * delta)
 
 func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
-	if !isRevealed:
 		if event is InputEventMouseButton:
 			var mouse_event := event as InputEventMouseButton
-			if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-				if !is_flagged:
-					unhighlight_cube()
-					reveal_cube()
-					if is_bomb:
-						animateExplosion()
-			if mouse_event.button_index == MOUSE_BUTTON_RIGHT and mouse_event.pressed:
-				toggle_flag()
+			if !isRevealed:
+				if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+					if !is_flagged:
+						unhighlight_cube()
+						reveal_cube()
+						if is_bomb:
+							animateExplosion()
+				elif mouse_event.button_index == MOUSE_BUTTON_RIGHT and mouse_event.pressed:
+					toggle_flag()
+			else	:
+				if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+					if $Area3D.can_auto_clear:
+						for cube in $Area3D.cubes:
+							cube.reveal_cube()
 
 func reveal_cube():
-	if !isRevealed:
+	if !isRevealed and !is_flagged:
 		var newMesh = bombMesh if is_bomb else flatMesh
 		$MeshInstance3D.mesh = newMesh
 		transform = transform.translated(Vector3(0, -0.1, 0))
@@ -54,7 +59,7 @@ func reveal_cube():
 
 func toggle_flag():
 	is_flagged = !is_flagged
-	$Label3D.text = "🚩"
+	$Label3D.text = "🚩" if is_flagged else ""
 	print("toggled flag")	
 
 func animateExplosion():
