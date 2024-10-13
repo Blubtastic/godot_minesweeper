@@ -35,7 +35,7 @@ func _physics_process(_delta: float) -> void:
 	can_auto_clear = true if nearbyMines == nearbyFlags else false
 	var nearbyMinesNumber = str(nearbyMines) if nearbyMines > 0 else ''
 	cubes = get_overlapping_bodies()
-	if $"..".isRevealed:
+	if $"..".is_cleared:
 		if nearbyMines == 0:
 			for cube in cubes:
 				cube.reveal_cube()

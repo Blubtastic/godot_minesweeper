@@ -1,13 +1,18 @@
 extends Node3D
 
 const CubeScene = preload("res://cube.tscn")
-const GRID_WIDTH = 30
-const GRID_HEIGHT = 16
+const GRID_WIDTH = 5
+const GRID_HEIGHT = 5
 const CUBE_DISTANCE = 1.0
 const drop_increase = 1
 var drop_intensity = 1.5
 var game_over = false
+var game_started = false
+var game_won = false
 var nodes
+var uncleared_cubes_num: int
+var mine_num: int
+var play_time: float = 0.0
 
 func _ready() -> void:
 	randomize()
@@ -22,11 +27,18 @@ func spawn_grid():
 			add_child(cube_instance)
 			
 			# connect cube's game_over signal
-			cube_instance.game_over.connect(_on_game_over)
+			cube_instance.game_over.connect(on_game_over)
+			cube_instance.game_start.connect(on_game_start)
 	nodes = get_tree().get_nodes_in_group("cubes")
 	nodes.shuffle()
+	for node in nodes:
+		if node.is_bomb:
+			mine_num += 1
 
-func _on_game_over():
+func on_game_start():
+	game_started = true
+
+func on_game_over():
 	game_over = true
 	for node in nodes:
 		if node and not node.is_queued_for_deletion():
@@ -43,12 +55,24 @@ func _on_game_over():
 			await timer2.timeout
 
 func _physics_process(delta):
+	if game_started and !game_won:
+		play_time += delta
+	$"../Timer".text = str("%.1f" % play_time, "s")
+	
+	uncleared_cubes_num = 0
+	for node in nodes:
+		if !node.is_cleared:
+			uncleared_cubes_num += 1
 	if Input.is_action_pressed("restart"):
 		_on_restart_button_pressed()
 	if game_over:
 		if drop_intensity >= 0.0:
 			# Reduce the shake intensity over time
 			drop_intensity -= drop_increase * delta
+	if uncleared_cubes_num == mine_num:
+		game_won = true
+		$"../WinBackground".visible = true
+		$"../YOUWON".text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
 
 func _on_restart_button_pressed():
 	get_tree().reload_current_scene()
