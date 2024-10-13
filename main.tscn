@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3s8hwqh7o2l1"]
 
-[ext_resource type="Script" path="res://camera_3d.gd" id="1_pyi2n"]
-[ext_resource type="Script" path="res://cube_grid.gd" id="2_oco18"]
+[ext_resource type="Script" path="res://camera.gd" id="1_pyi2n"]
+[ext_resource type="Script" path="res://game.gd" id="2_oco18"]
 
 [sub_resource type="Environment" id="Environment_bmdjw"]
 background_mode = 1
