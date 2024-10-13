@@ -41,8 +41,13 @@ func _on_game_over():
 			var timer2 = get_tree().create_timer(drop_intensity)
 			await timer2.timeout
 
-func _process(delta: float) -> void:
+func _physics_process(delta):
+	if Input.is_action_pressed("restart"):
+		_on_restart_button_pressed()
 	if game_over:
 		if drop_intensity >= 0.0:
 			# Reduce the shake intensity over time
 			drop_intensity -= drop_increase * delta
+
+func _on_restart_button_pressed():
+	get_tree().reload_current_scene()

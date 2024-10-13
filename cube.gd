@@ -23,7 +23,7 @@ func _ready() -> void:
 	$MeshInstance3D.mesh = selectedMesh.duplicate()
 	$MeshInstance3D.mesh.material = $MeshInstance3D.get_active_material(0).duplicate()
 
-func _process(delta):
+func _physics_process(delta):
 	if simulate_gravity:
 		velocity += gravity * delta
 		translate(velocity * delta)
