@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=10 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_pyi2n"]
 [ext_resource type="Script" path="res://game.gd" id="2_oco18"]
@@ -24,11 +24,20 @@ font_size = 124
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmdqd"]
+albedo_color = Color(0, 0.477753, 0.605469, 1)
+metallic = 0.22
+roughness = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0lvn"]
+material = SubResource("StandardMaterial3D_gmdqd")
+size = Vector2(1000, 1000)
+
 [node name="Main" type="Node"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.677611, 0.409652, 0.61076, -0.23637, -0.66511, 0.708349, 0.696399, -0.62435, -0.353857, 43.912, 17.484, 1.04162)
-light_color = Color(0.994965, 1, 0.935547, 1)
+transform = Transform3D(0.462226, 0.855133, 0.234721, 0.0094812, -0.269446, 0.962969, 0.886711, -0.442884, -0.132653, 0, 10, 0)
+light_color = Color(0.985658, 1, 0.816406, 1)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -73,3 +82,7 @@ offset_bottom = 623.0
 label_settings = SubResource("LabelSettings_6oo4t")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+mesh = SubResource("PlaneMesh_j0lvn")
