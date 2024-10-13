@@ -1,8 +1,8 @@
 extends Node3D
 
 const CubeScene = preload("res://cube.tscn")
-const GRID_WIDTH = 5
-const GRID_HEIGHT = 5
+const GRID_WIDTH = 16
+const GRID_HEIGHT = 16
 const CUBE_DISTANCE = 1.0
 const drop_increase = 1
 var drop_intensity = 1.5
@@ -55,7 +55,7 @@ func on_game_over():
 			await timer2.timeout
 
 func _physics_process(delta):
-	if game_started and !game_won:
+	if game_started and !game_won and !game_over:
 		play_time += delta
 	$"../Timer".text = str("%.1f" % play_time, "s")
 	
