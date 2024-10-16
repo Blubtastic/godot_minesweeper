@@ -3,6 +3,7 @@ extends Node3D
 const CubeScene = preload("res://cube.tscn")
 const GRID_WIDTH = 16
 const GRID_HEIGHT = 16
+const NUMBER_OF_MINES = 40
 const CUBE_DISTANCE = 1.0
 const DROP_INCREASE = 1
 var drop_intensity = 1.5
@@ -18,20 +19,38 @@ func _ready() -> void:
 	randomize()
 	spawn_grid()
 
+func randomized_mines():
+	var mine_list := []
+	for i in range(NUMBER_OF_MINES):
+		mine_list.append(1)
+	var not_mine_list := []
+	for i in range(GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES):
+		not_mine_list.append(0)
+	var fullList := mine_list + not_mine_list
+	fullList.shuffle()
+	return fullList
+
 func spawn_grid():
-	# instantiate cubes
+	var mine_list = randomized_mines()
 	for h in range(GRID_HEIGHT):
 		for w in range(GRID_WIDTH):
+			# instantiate cube
 			var cube_instance = CubeScene.instantiate()
 			var cube_position = Vector3(h * CUBE_DISTANCE, 0, w * CUBE_DISTANCE)
 			cube_instance.transform.origin = cube_position
+			
+			# add props
+			cube_instance.is_bomb = mine_list[h * GRID_WIDTH + w]
+			
+			# add to scene
 			add_child(cube_instance)
 			
-			# connect cube signals
+			# connect signals
 			cube_instance.game_over.connect(on_game_over)
 			cube_instance.game_start.connect(on_game_start)
 			cube_instance.cube_was_cleared.connect(on_cube_was_cleared)
-	# add them to group
+	
+	# add to group
 	nodes = get_tree().get_nodes_in_group("cubes")
 	nodes.shuffle()
 	for node in nodes:

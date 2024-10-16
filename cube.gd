@@ -7,7 +7,7 @@ extends StaticBody3D
 
 var is_cleared: bool = false
 var is_flagged: bool = false
-var is_bomb: int
+var is_bomb: int = false
 var bomb_probability = 0.16
 
 var simulate_gravity = false
@@ -19,7 +19,7 @@ signal game_start
 signal cube_was_cleared
 
 func _ready() -> void:
-	is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
+	# is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
 	var selectedMesh = mesh1
 	# duplicate meshes and materials 
 	$MeshInstance3D.mesh = selectedMesh.duplicate()
@@ -44,7 +44,7 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 							animateExplosion()
 				elif mouse_event.button_index == MOUSE_BUTTON_RIGHT and mouse_event.pressed:
 					toggle_flag()
-			else	:
+			else:
 				if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 					if $Area3D.can_auto_clear:
 						for cube in $Area3D.cubes:
