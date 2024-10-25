@@ -19,7 +19,7 @@ func _ready() -> void:
 	randomize()
 	spawn_grid()
 
-func randomized_mines():
+func randomized_mines(ignore_index: int):
 	var mine_list := []
 	for i in range(NUMBER_OF_MINES):
 		mine_list.append(1)
@@ -28,10 +28,11 @@ func randomized_mines():
 		not_mine_list.append(0)
 	var fullList := mine_list + not_mine_list
 	fullList.shuffle()
+	while fullList[ignore_index] == 1:
+		fullList.shuffle()
 	return fullList
 
 func spawn_grid():
-	var mine_list = randomized_mines()
 	for h in range(GRID_HEIGHT):
 		for w in range(GRID_WIDTH):
 			# instantiate cube
@@ -39,15 +40,10 @@ func spawn_grid():
 			var cube_position = Vector3(h * CUBE_DISTANCE, 0, w * CUBE_DISTANCE)
 			cube_instance.transform.origin = cube_position
 			
-			# add props
-			cube_instance.is_bomb = mine_list[h * GRID_WIDTH + w]
-			
 			# add to scene
 			add_child(cube_instance)
-			
 			# connect signals
 			cube_instance.game_over.connect(on_game_over)
-			cube_instance.game_start.connect(on_game_start)
 			cube_instance.cube_was_cleared.connect(on_cube_was_cleared)
 	
 	# add to group
@@ -57,8 +53,10 @@ func spawn_grid():
 		if node.is_bomb:
 			mine_num += 1
 
-func on_game_start():
-	game_started = true
+func set_mines(ignore_index):
+	var mine_list = randomized_mines(ignore_index)
+	for i in range(nodes.size()):
+		nodes[i].is_bomb = mine_list[i]
 
 func on_game_over():
 	game_over = true
@@ -73,7 +71,13 @@ func on_game_over():
 			var timer2 = get_tree().create_timer(drop_intensity)
 			await timer2.timeout
 
-func on_cube_was_cleared():
+func on_cube_was_cleared(this_cube_instance):
+	if !game_started:
+		this_cube_instance.is_bomb = false
+		var index_to_ignore = nodes.find(this_cube_instance)
+		set_mines(index_to_ignore)
+		game_started = true
+
 	# IMPROVEMENT: keep a list of uncleared and cleared cubes
 	# calculate number of cleared cubes
 	all_uncleared_cubes_are_mines = true

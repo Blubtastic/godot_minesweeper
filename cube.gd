@@ -7,7 +7,7 @@ extends StaticBody3D
 
 var is_cleared: bool = false
 var is_flagged: bool = false
-var is_bomb: int = false
+@export var is_bomb: int = false
 var bomb_probability = 0.16
 
 var simulate_gravity = false
@@ -15,7 +15,6 @@ var velocity = Vector3.ZERO
 var gravity = Vector3.DOWN * 9.8
 
 signal game_over
-signal game_start
 signal cube_was_cleared
 
 func _ready() -> void:
@@ -51,14 +50,13 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 							cube.reveal_cube()
 
 func reveal_cube():
-	game_start.emit()
 	if !is_cleared and !is_flagged:
 		var newMesh = bombMesh if is_bomb else flatMesh
 		$MeshInstance3D.mesh = newMesh
 		transform = transform.translated(Vector3(0, -0.1, 0))
 		$Label3D.visible = true
 		is_cleared = true;
-		cube_was_cleared.emit()
+		cube_was_cleared.emit(self)
 		if is_bomb:
 			game_over.emit()
 
