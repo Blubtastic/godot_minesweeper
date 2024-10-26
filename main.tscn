@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d3s8hwqh7o2l1"]
 
-[ext_resource type="Script" path="res://camera.gd" id="1_pyi2n"]
-[ext_resource type="Script" path="res://game.gd" id="2_oco18"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_36mps"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="2_cegsg"]
 
 [sub_resource type="Environment" id="Environment_bmdjw"]
 background_mode = 1
@@ -43,10 +43,10 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0.992546, -0.121869, 0, 0.121869, 0.992546, 1, 4.33856e-08, -5.32708e-09, -0.2, 65, 7.5)
 fov = 15.0
-script = ExtResource("1_pyi2n")
+script = ExtResource("1_36mps")
 
 [node name="CubeGrid" type="Node3D" parent="."]
-script = ExtResource("2_oco18")
+script = ExtResource("2_cegsg")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmdjw")

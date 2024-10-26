@@ -1,12 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=9 format=3 uid="uid://cnor6jdbe28rj"]
 
-[ext_resource type="Script" path="res://cube.gd" id="1_nu0u4"]
+[ext_resource type="Script" path="res://scripts/cube.gd" id="1_efsu3"]
 [ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube_mesh.tres" id="2_l54qn"]
-[ext_resource type="BoxMesh" uid="uid://cgwn5ijek178y" path="res://cube_mesh2.tres" id="3_3llbw"]
+[ext_resource type="Script" path="res://scripts/cube_scanner.gd" id="3_i1vxa"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://cube_mesh_flat.tres" id="5_2yjbx"]
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://cube_mesh_bomb.tres" id="5_c50i3"]
 [ext_resource type="BoxMesh" uid="uid://dn8ayd0wx7qt6" path="res://cube_mesh_radioactive.tres" id="6_wt2nf"]
-[ext_resource type="Script" path="res://cube_scanner.gd" id="7_gkxrr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
@@ -15,9 +14,8 @@ size = Vector3(2, 0.6, 2)
 
 [node name="Cube" type="StaticBody3D" groups=["cubes"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
-script = ExtResource("1_nu0u4")
+script = ExtResource("1_efsu3")
 mesh1 = ExtResource("2_l54qn")
-mesh2 = ExtResource("3_3llbw")
 flatMesh = ExtResource("5_2yjbx")
 bombMesh = ExtResource("5_c50i3")
 radioactiveMesh = ExtResource("6_wt2nf")
@@ -34,7 +32,7 @@ modulate = Color(0, 0, 0, 1)
 font_size = 100
 
 [node name="Area3D" type="Area3D" parent="."]
-script = ExtResource("7_gkxrr")
+script = ExtResource("3_i1vxa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_y1sac")

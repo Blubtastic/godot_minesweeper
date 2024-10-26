@@ -1,6 +1,5 @@
 extends StaticBody3D
 @export var mesh1: Mesh
-@export var mesh2: Mesh
 @export var flatMesh: Mesh
 @export var bombMesh: Mesh
 @export var radioactiveMesh: Mesh
