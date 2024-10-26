@@ -9,38 +9,30 @@ const colors = [
 	Color(0, 0, 0),
 	Color(0.5, 0.5, 0.5)
 ]
-var overlappingCubes
+var overlapping_cubes
 var can_auto_clear = false
 
-func get_nearby_cube_data(nearbyCubes: Array[Node3D]):
-	var bombCount = 0
-	var flagCount = 0
-	for cube in nearbyCubes:
-		if cube.is_bomb:
-			bombCount += 1
-		if cube.is_flagged:
-			flagCount += 1
-	return [bombCount, flagCount]
+func get_nearby_cube_data(nearbyCubes: Array[Node3D]) -> Array:
+	var bombs := nearbyCubes.filter(func(cube): return true if cube.is_bomb else false)
+	var flags := nearbyCubes.filter(func(cube): return true if cube.is_flagged else false)
+	return [bombs.size(), flags.size()]
 
 func update_cube():
-	overlappingCubes = get_overlapping_bodies()
-	var cubeData = get_nearby_cube_data(overlappingCubes)
+	overlapping_cubes = get_overlapping_bodies()
+	var cubeData = get_nearby_cube_data(overlapping_cubes)
 	var nearbyMines = cubeData[0]
 	var nearbyFlags = cubeData[1]
 	can_auto_clear = true if nearbyMines == nearbyFlags else false
-	var nearbyMinesNumber = str(nearbyMines) if nearbyMines > 0 else ''
 	
 	if $"..".is_cleared:
 		if nearbyMines == 0:
-			for cube in overlappingCubes:
+			for cube in overlapping_cubes:
 				cube.reveal_cube()
 		if $"..".is_bomb:
 			$"../Label3D".text = '💣'
 			$"../Label3D".modulate = Color(1, 1, 1)
-			for cube in overlappingCubes:
-				cube.reveal_cube()
 		else:
-			$"../Label3D".text = nearbyMinesNumber
+			$"../Label3D".text = str(nearbyMines) if nearbyMines > 0 else ''
 			var index = nearbyMines - 1 if nearbyMines < colors.size() - 1 else 0
 			$"../Label3D".modulate = colors[index]
 			$"../Label3D".outline_modulate = colors[index]

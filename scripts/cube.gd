@@ -41,9 +41,9 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 				unhighlight_cube()
 				reveal_cube()
 		elif isLeftClick:
-			$Area3D.update_cube()
-			if $Area3D.can_auto_clear:
-				for cube in $Area3D.overlappingCubes:
+			$CubeScanner.update_cube()
+			if $CubeScanner.can_auto_clear:
+				for cube in $CubeScanner.overlapping_cubes:
 					cube.reveal_cube()
 
 func reveal_cube():
@@ -53,7 +53,7 @@ func reveal_cube():
 		$Label3D.visible = true
 		is_cleared = true;
 		cube_was_cleared.emit(self)
-		$Area3D.update_cube()
+		$CubeScanner.update_cube()
 		if is_bomb:
 			game_over.emit()
 			animateExplosion()

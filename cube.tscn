@@ -31,10 +31,10 @@ transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.3
 modulate = Color(0, 0, 0, 1)
 font_size = 100
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="CubeScanner" type="Area3D" parent="."]
 script = ExtResource("3_i1vxa")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CubeScanner"]
 shape = SubResource("BoxShape3D_y1sac")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
