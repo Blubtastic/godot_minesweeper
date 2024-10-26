@@ -9,7 +9,6 @@ const colors = [
 	Color(0, 0, 0),
 	Color(0.5, 0.5, 0.5)
 ]
-
 var overlappingCubes
 var can_auto_clear = false
 
