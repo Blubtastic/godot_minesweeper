@@ -18,7 +18,9 @@ signal game_over
 signal cube_was_cleared
 
 func _ready() -> void:
+	# Random change of being mine
 	# is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
+
 	var selectedMesh = mesh1
 	$MeshInstance3D.mesh = selectedMesh.duplicate()
 	$MeshInstance3D.mesh.material = $MeshInstance3D.get_active_material(0).duplicate()
@@ -39,9 +41,11 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 			elif isLeftClick and !is_flagged:
 				unhighlight_cube()
 				reveal_cube()
-		elif isLeftClick and $Area3D.can_auto_clear:
-			for cube in $Area3D.cubes:
-				cube.reveal_cube()
+		elif isLeftClick:
+			$Area3D.update_cube()
+			if $Area3D.can_auto_clear:
+				for cube in $Area3D.overlappingCubes:
+					cube.reveal_cube()
 
 func reveal_cube():
 	if !is_cleared and !is_flagged:
@@ -50,6 +54,7 @@ func reveal_cube():
 		$Label3D.visible = true
 		is_cleared = true;
 		cube_was_cleared.emit(self)
+		$Area3D.update_cube()
 		if is_bomb:
 			game_over.emit()
 			animateExplosion()

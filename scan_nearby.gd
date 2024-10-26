@@ -10,7 +10,7 @@ const colors = [
 	Color(0.5, 0.5, 0.5)
 ]
 
-var cubes
+var overlappingCubes
 var can_auto_clear = false
 
 func get_nearby_cube_data(nearbyCubes: Array[Node3D]):
@@ -23,23 +23,22 @@ func get_nearby_cube_data(nearbyCubes: Array[Node3D]):
 			flagCount += 1
 	return [bombCount, flagCount]
 
-func _physics_process(_delta: float) -> void:
-	cubes = get_overlapping_bodies()
-	var cubeData = get_nearby_cube_data(cubes)
+func update_cube():
+	overlappingCubes = get_overlapping_bodies()
+	var cubeData = get_nearby_cube_data(overlappingCubes)
 	var nearbyMines = cubeData[0]
 	var nearbyFlags = cubeData[1]
 	can_auto_clear = true if nearbyMines == nearbyFlags else false
 	var nearbyMinesNumber = str(nearbyMines) if nearbyMines > 0 else ''
 	
-	# TODO: optimize, all surrounding cube labels are refreshed every frame.
 	if $"..".is_cleared:
 		if nearbyMines == 0:
-			for cube in cubes:
+			for cube in overlappingCubes:
 				cube.reveal_cube()
 		if $"..".is_bomb:
 			$"../Label3D".text = '💣'
 			$"../Label3D".modulate = Color(1, 1, 1)
-			for cube in cubes:
+			for cube in overlappingCubes:
 				cube.reveal_cube()
 		else:
 			$"../Label3D".text = nearbyMinesNumber
