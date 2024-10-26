@@ -1,23 +1,37 @@
 extends Node3D
 
-const CubeScene = preload("res://cube.tscn")
-const GRID_WIDTH = 16
-const GRID_HEIGHT = 16
-const NUMBER_OF_MINES = 40
-const CUBE_DISTANCE = 1.0
-const DROP_INCREASE = 1
+const CubeScene := preload("res://cube.tscn")
+const GRID_WIDTH := 16
+const GRID_HEIGHT := 16
+const NUMBER_OF_MINES := 40
+const NUMBER_OF_NOT_MINES = GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES
+const CUBE_DISTANCE := 1.0
+const DROP_INCREASE := 1
 var drop_intensity = 1.5
-var game_over = false
-var game_started = false
-var game_won = false
+var game_over: bool = false
+var game_started: bool = false
+var game_won: bool = false
+var play_time := 0.0
+
 var cubes
-var all_uncleared_cubes_are_mines: bool = false
-var mine_num: int
-var play_time: float = 0.0
+var cleared_cubes := []
 
 func _ready() -> void:
 	randomize()
 	spawn_grid()
+
+func _process(delta):
+	var game_in_progress = game_started and !game_won and !game_over
+	if game_in_progress:
+		play_time += delta
+	$"../Timer".text = str("%.1f" % play_time, "s")
+	
+	if Input.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
+	
+	if game_over:
+		if drop_intensity >= 0.0:
+			drop_intensity -= DROP_INCREASE * delta
 
 func spawn_grid():
 	for h in range(GRID_HEIGHT):
@@ -28,12 +42,7 @@ func spawn_grid():
 			cube_instance.game_over.connect(on_game_over)
 			cube_instance.cube_was_cleared.connect(on_cube_was_cleared)
 			add_child(cube_instance)
-	
 	cubes = get_tree().get_nodes_in_group("cubes")
-	cubes.shuffle()
-	for node in cubes:
-		if node.is_bomb:
-			mine_num += 1
 
 func randomized_mines(ignore_index: int):
 	var mine_list := []
@@ -66,37 +75,21 @@ func on_game_over():
 			var timer2 = get_tree().create_timer(drop_intensity)
 			await timer2.timeout
 
-func on_cube_was_cleared(this_cube_instance):
+func on_game_won():
+	game_won = true
+	$"../WinBackground".visible = true
+	$"../YOUWON".text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
+
+func on_game_start(cleared_cube):
 	if !game_started:
-		this_cube_instance.is_bomb = false
-		var index_to_ignore = cubes.find(this_cube_instance)
-		set_mines(index_to_ignore)
 		game_started = true
+		cleared_cube.is_bomb = false
+		var index_to_ignore = cubes.find(cleared_cube)
+		set_mines(index_to_ignore)
 
-	# TODO: keep a list of uncleared and cleared cubes
-	# calculate number of cleared cubes
-	all_uncleared_cubes_are_mines = true
-	for node in cubes:
-		if !node.is_cleared and !node.is_bomb:
-			all_uncleared_cubes_are_mines = false
+func on_cube_was_cleared(cleared_cube):
+	on_game_start(cleared_cube)
 	
-	if all_uncleared_cubes_are_mines and !game_over:
-		game_won = true
-		$"../WinBackground".visible = true
-		$"../YOUWON".text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
-
-func _process(delta):
-	if game_started and !game_won and !game_over:
-		play_time += delta
-	$"../Timer".text = str("%.1f" % play_time, "s")
-	
-	if Input.is_action_pressed("restart"):
-		on_restart_button_pressed()
-	
-	if game_over:
-		if drop_intensity >= 0.0:
-			# Reduce the shake intensity over time
-			drop_intensity -= DROP_INCREASE * delta
-
-func on_restart_button_pressed():
-	get_tree().reload_current_scene()
+	cleared_cubes.append(cleared_cube)
+	if !game_over and cleared_cubes.size() == NUMBER_OF_NOT_MINES:
+		on_game_won()
