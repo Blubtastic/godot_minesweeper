@@ -50,7 +50,7 @@ func reveal_cube():
 	if !is_cleared and !is_flagged:
 		$MeshInstance3D.mesh = bombMesh if is_bomb else flatMesh
 		transform = transform.translated(Vector3(0, -0.1, 0))
-		$Label3D.visible = true
+		$NearbyMinesLabel.visible = true
 		is_cleared = true;
 		cube_was_cleared.emit(self)
 		$CubeScanner.update_cube()
@@ -61,7 +61,7 @@ func reveal_cube():
 
 func toggle_flag():
 	is_flagged = !is_flagged
-	$Label3D.text = "🚩" if is_flagged else ""
+	$NearbyMinesLabel.text = "🚩" if is_flagged else ""
 
 func animateExplosion():
 	$MeshInstance3D.mesh = radioactiveMesh
