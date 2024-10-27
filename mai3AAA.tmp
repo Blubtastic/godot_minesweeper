@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://d3s8hwqh7o2l1"]
+
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_36mps"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="2_cegsg"]
+
+[sub_resource type="Environment" id="Environment_bmdjw"]
+background_mode = 1
+background_color = Color(0, 0.49736, 0.621094, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dxy76"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bat4j"]
+font_size = 64
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6oo4t"]
+font_size = 124
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmdqd"]
+albedo_color = Color(0, 0.477753, 0.605469, 1)
+metallic = 0.22
+roughness = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0lvn"]
+material = SubResource("StandardMaterial3D_gmdqd")
+size = Vector2(1000, 1000)
+
+[node name="Main" type="Node"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.462226, 0.855133, 0.234721, 0.0094812, -0.269446, 0.962969, 0.886711, -0.442884, -0.132653, 0, 10, 0)
+light_color = Color(0.985658, 1, 0.816406, 1)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.992546, -0.121869, 0, 0.121869, 0.992546, 1, 4.33856e-08, -5.32708e-09, -0.2, 65, 7.5)
+fov = 15.0
+script = ExtResource("1_36mps")
+
+[node name="CubeGrid" type="Node3D" parent="."]
+script = ExtResource("2_cegsg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bmdjw")
+camera_attributes = SubResource("CameraAttributesPractical_dxy76")
+
+[node name="WinBackground" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+offset_right = 10000.0
+offset_bottom = 10000.0
+color = Color(0, 0, 0, 0.388235)
+
+[node name="Controls" type="Label" parent="."]
+offset_left = 240.0
+offset_top = 30.0
+offset_right = 740.0
+offset_bottom = 130.0
+text = "⟳: r"
+label_settings = SubResource("LabelSettings_oy0yb")
+
+[node name="Timer" type="Label" parent="."]
+offset_left = 20.0
+offset_right = 60.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_bat4j")
+
+[node name="YOUWON" type="Label" parent="."]
+z_index = 10
+offset_left = 350.0
+offset_top = 600.0
+offset_right = 390.0
+offset_bottom = 623.0
+label_settings = SubResource("LabelSettings_6oo4t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+mesh = SubResource("PlaneMesh_j0lvn")

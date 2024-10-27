@@ -4,7 +4,7 @@ extends Node3D
 @onready var Camera: Camera3D = $"../Camera3D"
 @onready var Background: ColorRect = $"../WinBackground"
 @onready var WinLabel: Label = $"../YOUWON"
-const CubeScene := preload("res://cube.tscn")
+const CubeScene := preload("res://cube/cube.tscn")
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16
 const NUMBER_OF_MINES := 40
