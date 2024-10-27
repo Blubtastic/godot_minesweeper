@@ -47,13 +47,13 @@ func spawn_grid():
 func randomized_mines(ignore_index: int):
 	var mine_list := []
 	for i in range(NUMBER_OF_MINES):
-		mine_list.append(1)
+		mine_list.append(true)
 	var not_mine_list := []
 	for i in range(GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES):
-		not_mine_list.append(0)
+		not_mine_list.append(false)
 	var fullList := mine_list + not_mine_list
 	fullList.shuffle()
-	while fullList[ignore_index] == 1:
+	while fullList[ignore_index] == true:
 		fullList.shuffle()
 	return fullList
 

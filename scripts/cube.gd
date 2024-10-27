@@ -1,28 +1,23 @@
 extends StaticBody3D
+
 @export var mesh1: Mesh
 @export var flatMesh: Mesh
 @export var bombMesh: Mesh
 @export var radioactiveMesh: Mesh
-
-@export var is_bomb: int = false
-var is_cleared: bool = false
-var is_flagged: bool = false
-var bomb_probability = 0.16
-
-var simulate_gravity = false
-var velocity = Vector3.ZERO
-var gravity = Vector3.DOWN * 9.8
-
+@export var is_bomb := false
+var is_cleared := false
+var is_flagged := false
+var simulate_gravity := false
+var velocity := Vector3.ZERO
+var gravity := Vector3.DOWN * 9.8
 signal game_over
 signal cube_was_cleared
 
 func _ready() -> void:
-	# Random change of being mine
-	# is_bomb = true if (randi() % 100) < (bomb_probability*100) else false
-
-	var selectedMesh = mesh1
-	$MeshInstance3D.mesh = selectedMesh.duplicate()
+	# assign Nodes
+	$MeshInstance3D.mesh = mesh1.duplicate()
 	$MeshInstance3D.mesh.material = $MeshInstance3D.get_active_material(0).duplicate()
+	$MeshInstance3D.mesh.material.emission = Color(0.3, 0.3, 0.3)
 
 func _physics_process(delta):
 	if simulate_gravity:
@@ -32,14 +27,14 @@ func _physics_process(delta):
 func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
-		var isLeftClick = mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT
-		var isRightLick = mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_RIGHT
+		var isLeftClick := mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT
+		var isRightLick := mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_RIGHT
 		if !is_cleared:
 			if isRightLick or (isLeftClick and event.is_command_or_control_pressed()):
 				toggle_flag()
 			elif isLeftClick and !is_flagged:
-				unhighlight_cube()
 				reveal_cube()
+				unhighlight_cube()
 		elif isLeftClick:
 			$CubeScanner.update_cube()
 			if $CubeScanner.can_auto_clear:
@@ -78,9 +73,8 @@ func _on_mouse_exited():
 	unhighlight_cube()
 
 func highlight_cube():
-		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-		$MeshInstance3D.mesh.material.emission_enabled = true
-		$MeshInstance3D.mesh.material.emission = Color(0.3, 0.3, 0.3)
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	$MeshInstance3D.mesh.material.emission_enabled = true
 
 func unhighlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
