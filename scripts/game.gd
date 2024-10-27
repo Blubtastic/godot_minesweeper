@@ -1,18 +1,21 @@
 extends Node3D
 
+@onready var GameTimer: Label = $"../Timer"
+@onready var Camera: Camera3D = $"../Camera3D"
+@onready var Background: ColorRect = $"../WinBackground"
+@onready var WinLabel: Label = $"../YOUWON"
 const CubeScene := preload("res://cube.tscn")
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16
 const NUMBER_OF_MINES := 40
-const NUMBER_OF_NOT_MINES = GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES
+const NUMBER_OF_NOT_MINES := GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES
 const CUBE_DISTANCE := 1.0
 const DROP_INCREASE := 1
-var drop_intensity = 1.5
+var drop_intensity := 1.5
 var game_over: bool = false
 var game_started: bool = false
 var game_won: bool = false
 var play_time := 0.0
-
 var cubes
 var cleared_cubes := []
 
@@ -24,7 +27,7 @@ func _process(delta):
 	var game_in_progress = game_started and !game_won and !game_over
 	if game_in_progress:
 		play_time += delta
-	$"../Timer".text = str("%.1f" % play_time, "s")
+	GameTimer.text = str("%.1f" % play_time, "s")
 	
 	if Input.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
@@ -68,7 +71,7 @@ func on_game_over():
 		if node and not node.is_queued_for_deletion():
 			node.reveal_cube()
 	
-	$"../Camera3D".start_shake(.4, 1.0)
+	Camera.start_shake(.4, 1.0)
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
 			node.enable_gravity()
@@ -77,8 +80,8 @@ func on_game_over():
 
 func on_game_won():
 	game_won = true
-	$"../WinBackground".visible = true
-	$"../YOUWON".text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
+	Background.visible = true
+	WinLabel.text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
 
 func on_game_start(cleared_cube):
 	if !game_started:
