@@ -15,7 +15,7 @@ size = Vector3(2, 0.6, 2)
 [node name="Cube" type="StaticBody3D" groups=["cubes"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 script = ExtResource("1_efsu3")
-mesh1 = ExtResource("2_l54qn")
+mesh = ExtResource("2_l54qn")
 flatMesh = ExtResource("5_2yjbx")
 bombMesh = ExtResource("5_c50i3")
 radioactiveMesh = ExtResource("6_wt2nf")
@@ -23,7 +23,7 @@ radioactiveMesh = ExtResource("6_wt2nf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_aokb8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="CubeMesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_l54qn")
 
 [node name="NearbyMinesLabel" type="Label3D" parent="."]

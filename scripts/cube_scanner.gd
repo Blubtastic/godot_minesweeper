@@ -1,4 +1,5 @@
 extends Area3D
+
 const COLORS: Array[Color] = [
 	Color(0, 0, 1),
 	Color(0, 0.5, 0),
@@ -9,14 +10,10 @@ const COLORS: Array[Color] = [
 	Color(0, 0, 0),
 	Color(0.5, 0.5, 0.5)
 ]
-var Cube: StaticBody3D
-var NearbyMinesLabel: Label3D
+@onready var Cube: StaticBody3D = $".."
+@onready var NearbyMinesLabel: Label3D = $"../NearbyMinesLabel"
 var overlapping_cubes: Array[Node3D]
 var can_auto_clear: bool = false
-
-func _ready() -> void:
-	Cube = $".."
-	NearbyMinesLabel = $"../NearbyMinesLabel"
 
 func update_cube() -> void:
 	overlapping_cubes = get_overlapping_bodies()
