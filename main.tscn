@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=13 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="2_cegsg"]
@@ -31,7 +31,15 @@ roughness = 0.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_j0lvn"]
 material = SubResource("StandardMaterial3D_gmdqd")
-size = Vector2(1000, 1000)
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ar8to"]
+albedo_color = Color(0.00784314, 0.278431, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lyo60"]
+material = SubResource("StandardMaterial3D_ar8to")
+
+[sub_resource type="BoxMesh" id="BoxMesh_bcama"]
 
 [node name="Main" type="Node"]
 
@@ -41,7 +49,7 @@ light_color = Color(0.985658, 1, 0.816406, 1)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.992546, -0.121869, 0, 0.121869, 0.992546, 1, 4.33856e-08, -5.32708e-09, -0.2, 65, 7.5)
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 7.8, 67.045, 7.5)
 fov = 15.0
 script = ExtResource("1_36mps")
 
@@ -84,5 +92,105 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -0.5, 8)
 mesh = SubResource("PlaneMesh_j0lvn")
+
+[node name="Surroundings" type="Node" parent="."]
+
+[node name="GrassCube" type="StaticBody3D" parent="Surroundings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -5.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube"]
+transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_lyo60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube"]
+
+[node name="GrassCube2" type="StaticBody3D" parent="Surroundings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 20.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube2"]
+transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_lyo60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube2"]
+
+[node name="GrassCube3" type="StaticBody3D" parent="Surroundings"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20.5, 0, 7.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube3"]
+transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_lyo60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube3"]
+
+[node name="GrassCube4" type="StaticBody3D" parent="Surroundings"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 7.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube4"]
+transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_lyo60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube4"]
+
+[node name="VisualCubes" type="Node" parent="Surroundings"]
+
+[node name="VisualCube4" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(0.979272, 0, -0.202548, 0, 1, 0, 0.202548, 0, 0.979272, 16.7963, 1, 14.1107)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube4"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube4"]
+metadata/_edit_lock_ = true
+
+[node name="VisualCube6" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(-0.0784243, 0, 0.99692, 0, 1, 0, -0.99692, 0, -0.0784243, 14.6851, 1, 16.8855)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube6"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube6"]
+metadata/_edit_lock_ = true
+
+[node name="VisualCube5" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(-0.971097, 0, -0.238686, 0, 1, 0, 0.238686, 0, -0.971097, 2.74503, 1, 16.8534)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube5"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube5"]
+metadata/_edit_lock_ = true
+
+[node name="VisualCube3" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(-0.995856, 0, 0.0909455, 0, 1, 0, -0.0909455, 0, -0.995856, 1.81354, 0.999998, -1.77891)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube3"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube3"]
+metadata/_edit_lock_ = true
+
+[node name="VisualCube" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(0.738455, 0, 0.674302, 0, 1, 0, -0.674302, 0, 0.738455, 3.02081, 0.999999, -1.76319)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube"]
+metadata/_edit_lock_ = true
+
+[node name="VisualCube2" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(0.258212, 0, 0.966088, 0, 1, 0, -0.966088, 0, 0.258212, 2.54809, 2, -1.83069)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube2"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube2"]
+metadata/_edit_lock_ = true
