@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://db7bmusgntyey"]
+
+[ext_resource type="Script" path="res://cube.gd" id="1_nu0u4"]
+[ext_resource type="BoxMesh" path="res://cube_mesh.tres" id="2_l54qn"]
+[ext_resource type="BoxMesh" path="res://cube_mesh2.tres" id="3_3llbw"]
+[ext_resource type="BoxMesh" path="res://cube_mesh_flat.tres" id="5_2yjbx"]
+[ext_resource type="BoxMesh" path="res://cube_mesh_bomb.tres" id="5_c50i3"]
+[ext_resource type="Script" path="res://scan_nearby.gd" id="5_ercv3"]
+[ext_resource type="BoxMesh" path="res://cube_mesh_radioactive.tres" id="6_wt2nf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y1sac"]
+size = Vector3(2, 0.6, 2)
+
+[node name="Cube" type="StaticBody3D" groups=["cubes"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+script = ExtResource("1_nu0u4")
+mesh1 = ExtResource("2_l54qn")
+mesh2 = ExtResource("3_3llbw")
+flatMesh = ExtResource("5_2yjbx")
+bombMesh = ExtResource("5_c50i3")
+radioactiveMesh = ExtResource("6_wt2nf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_aokb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_l54qn")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0.515925, 0)
+modulate = Color(0, 0, 0, 1)
+font_size = 100
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("5_ercv3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_y1sac")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://487bysnuw5km"]
+
+[sub_resource type="Curve" id="Curve_xwc5e"]
+_data = [Vector2(0, 0.00204086), 0.0, 0.995918, 0, 0, Vector2(0.501859, 0.504082), 1.00443, 1.00443, 0, 0, Vector2(1, 1), 1.00186, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_my20j"]
+radius = 0.61
+radial_steps = 3
+curve = SubResource("Curve_xwc5e")
+
+[node name="RigidBody3D" type="RigidBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TubeTrailMesh_my20j")

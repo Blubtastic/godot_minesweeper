@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dws4gs821qjd0"]
+
+[ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://CubePiece.tscn" id="1_grq2d"]
+
+[node name="Node" type="Node"]
+
+[node name="RigidBody3D" parent="." instance=ExtResource("1_grq2d")]
+
+[node name="RigidBody3D2" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.525417, -0.00150213, 0.300935)
