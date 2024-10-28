@@ -52,6 +52,7 @@ func _on_mouse_exited():
 
 func reveal_cube():
 	if !is_cleared and !is_flagged:
+		$RevealCube.play()
 		CubeMesh.mesh = bombMesh if is_bomb else flatMesh
 		NearbyMinesLabel.visible = true
 		transform = transform.translated(Vector3(0, -0.1, 0))

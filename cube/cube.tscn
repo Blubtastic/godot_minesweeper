@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=10 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://cube/cube.gd" id="1_6dv3v"]
 [ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube/cube_mesh.tres" id="2_w48q4"]
@@ -6,6 +6,7 @@
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://cube/cube_mesh_bomb.tres" id="4_mlbjy"]
 [ext_resource type="BoxMesh" uid="uid://dn8ayd0wx7qt6" path="res://cube/cube_mesh_radioactive.tres" id="5_kdr08"]
 [ext_resource type="Script" path="res://cube/cube_scanner.gd" id="6_vqy3y"]
+[ext_resource type="AudioStream" uid="uid://bjpkhrcmt7lw" path="res://assets/audio/open-tile.wav" id="7_wtr4x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
@@ -36,6 +37,11 @@ script = ExtResource("6_vqy3y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CubeScanner"]
 shape = SubResource("BoxShape3D_y1sac")
+
+[node name="RevealCube" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_wtr4x")
+volume_db = -8.901
+bus = &"Cube"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
