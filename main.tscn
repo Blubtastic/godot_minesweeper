@@ -49,7 +49,7 @@ light_color = Color(0.985658, 1, 0.816406, 1)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 7.8, 67.045, 7.5)
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 7.8, 68, 7.5)
 fov = 15.0
 script = ExtResource("1_36mps")
 
@@ -83,10 +83,10 @@ label_settings = SubResource("LabelSettings_bat4j")
 
 [node name="YOUWON" type="Label" parent="."]
 z_index = 10
-offset_left = 350.0
+offset_left = 330.0
 offset_top = 600.0
-offset_right = 390.0
-offset_bottom = 623.0
+offset_right = 370.0
+offset_bottom = 770.0
 label_settings = SubResource("LabelSettings_6oo4t")
 horizontal_alignment = 1
 vertical_alignment = 1

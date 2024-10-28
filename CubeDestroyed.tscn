@@ -7,4 +7,31 @@
 [node name="RigidBody3D" parent="." instance=ExtResource("1_grq2d")]
 
 [node name="RigidBody3D2" parent="." instance=ExtResource("1_grq2d")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.525417, -0.00150213, 0.300935)
+transform = Transform3D(0.999993, -0.00375245, 0, 0.00375245, 0.999993, 0, 0, 0, 1, 0.227298, 0, -0.772449)
+
+[node name="RigidBody3D3" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.271673, 0, -0.270353)
+
+[node name="RigidBody3D4" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.501573, 0, -0.497855)
+
+[node name="RigidBody3D10" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.789162, 0, -0.239832)
+
+[node name="RigidBody3D11" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.288066, 0, 0.261576)
+
+[node name="RigidBody3D5" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.278094, -0.0019072, -0.218152)
+
+[node name="RigidBody3D6" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.221082, -0.0019072, -0.714812)
+
+[node name="RigidBody3D7" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.222718, -0.0019072, 0.281655)
+
+[node name="RigidBody3D8" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.726309, -0.0019072, -0.21924)
+
+[node name="RigidBody3D9" parent="." instance=ExtResource("1_grq2d")]
+transform = Transform3D(0.517504, -0.855681, 7.4806e-08, -0.855681, -0.517504, 4.52417e-08, 0, -8.74228e-08, -1, 0.231513, -0.266436, -0.0613551)
