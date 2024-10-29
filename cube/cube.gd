@@ -8,6 +8,10 @@ extends StaticBody3D
 @onready var CubeMesh: MeshInstance3D = $CubeMesh
 @onready var CubeScanner: Area3D = $CubeScanner
 @onready var NearbyMinesLabel: Label3D = $NearbyMinesLabel
+@onready var RevealCubeAudio: AudioStreamPlayer = $RevealCube
+@onready var PlaceFlagAudio: AudioStreamPlayer = $PlaceFlag
+@onready var RemoveFlagAudio: AudioStreamPlayer = $RemoveFlag
+@onready var HighlightCubeAudio: AudioStreamPlayer = $HighlightCube
 var is_cleared := false
 var is_flagged := false
 var simulate_gravity := false
@@ -35,11 +39,12 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 			if is_right_click or (is_left_click and event.is_command_or_control_pressed()):
 				toggle_flag()
 			elif is_left_click and !is_flagged:
-				reveal_cube()
+				reveal_cube(true)
 				unhighlight_cube()
 		elif is_left_click:
 			CubeScanner.update_cube()
 			if CubeScanner.can_auto_clear:
+				RevealCubeAudio.play()
 				for cube in CubeScanner.overlapping_cubes:
 					cube.reveal_cube()
 
@@ -50,9 +55,10 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	unhighlight_cube()
 
-func reveal_cube():
+func reveal_cube(play_sound: bool = false):
 	if !is_cleared and !is_flagged:
-		$RevealCube.play()
+		if play_sound:
+			RevealCubeAudio.play()
 		CubeMesh.mesh = bombMesh if is_bomb else flatMesh
 		NearbyMinesLabel.visible = true
 		transform = transform.translated(Vector3(0, -0.1, 0))
@@ -70,6 +76,10 @@ func animateExplosion():
 func toggle_flag():
 	is_flagged = !is_flagged
 	NearbyMinesLabel.text = "🚩" if is_flagged else ""
+	if is_flagged:
+		PlaceFlagAudio.play()
+	else:
+		RemoveFlagAudio.play(0.15)
 
 func enable_gravity():
 	simulate_gravity = true
@@ -77,6 +87,7 @@ func enable_gravity():
 func highlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 	CubeMesh.mesh.material.emission_enabled = true
+	HighlightCubeAudio.play()
 
 func unhighlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
