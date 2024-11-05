@@ -1,5 +1,6 @@
 extends StaticBody3D
 
+@onready var CubeDestroyed = preload("res://CubeDestroyed.tscn")
 @export var mesh: Mesh
 @export var flatMesh: Mesh
 @export var bombMesh: Mesh
@@ -41,12 +42,16 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 			elif is_left_click and !is_flagged:
 				reveal_cube(true)
 				unhighlight_cube()
+				if is_bomb:
+					trigger_explosion()
 		elif is_left_click:
 			CubeScanner.update_cube()
 			if CubeScanner.can_auto_clear:
 				RevealCubeAudio.play()
 				for cube in CubeScanner.overlapping_cubes:
 					cube.reveal_cube()
+					if cube.is_bomb and cube.is_cleared:
+						cube.trigger_explosion()
 
 func _on_mouse_entered():
 	if !is_cleared:
@@ -73,6 +78,12 @@ func animateExplosion():
 	CubeMesh.mesh = radioactiveMesh
 	unhighlight_cube()
 
+func trigger_explosion():
+	var cube_destroyed = CubeDestroyed.instantiate()
+	cube_destroyed.global_position = Vector3(global_position.x / 1000, 0.7, global_position.y)
+	add_child(cube_destroyed)
+	CubeMesh.visible = false
+
 func toggle_flag():
 	is_flagged = !is_flagged
 	NearbyMinesLabel.text = "🚩" if is_flagged else ""
@@ -82,7 +93,8 @@ func toggle_flag():
 		RemoveFlagAudio.play(0.15)
 
 func enable_gravity():
-	simulate_gravity = true
+	#simulate_gravity = true
+	pass
 
 func highlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)

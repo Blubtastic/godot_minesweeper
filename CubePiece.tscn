@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://487bysnuw5km"]
+[gd_scene load_steps=4 format=3 uid="uid://bu4y4qv38mhd2"]
 
 [sub_resource type="Curve" id="Curve_xwc5e"]
 _data = [Vector2(0.00371747, 0.0102041), 0.0, 1.0015, 0, 0, Vector2(0.501859, 0.497959), 0.999266, 0.999266, 0, 0, Vector2(1, 1), 1.00036, 0.0, 0, 0]
@@ -11,7 +11,15 @@ section_rings = 6
 cap_top = false
 curve = SubResource("Curve_xwc5e")
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7dyy8"]
+points = PackedVector3Array(0, 0, 0, 0.7, 0, 0, 0.7, 0, 0.7, 0, 0, 0.7, 0.375, 0.8, 0.375)
+
+[node name="CubePiece" type="RigidBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 mesh = SubResource("TubeTrailMesh_my20j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.414249, 0, 0.434048, 0, 0.6, 0, -0.434048, 0, 0.414249, -0.307682, -0.239077, 0.00731137)
+shape = SubResource("ConvexPolygonShape3D_7dyy8")

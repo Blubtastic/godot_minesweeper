@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=17 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="2_cegsg"]
@@ -38,6 +38,18 @@ albedo_color = Color(0.00784314, 0.278431, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lyo60"]
 material = SubResource("StandardMaterial3D_ar8to")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lcpia"]
+size = Vector3(36, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xufji"]
+size = Vector3(36, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ns8i"]
+size = Vector3(16, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nhwx1"]
+size = Vector3(16, 1, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bcama"]
 
@@ -105,6 +117,7 @@ transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube"]
+shape = SubResource("BoxShape3D_lcpia")
 
 [node name="GrassCube2" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 20.5)
@@ -114,6 +127,7 @@ transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube2"]
+shape = SubResource("BoxShape3D_xufji")
 
 [node name="GrassCube3" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20.5, 0, 7.5)
@@ -123,6 +137,7 @@ transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube3"]
+shape = SubResource("BoxShape3D_6ns8i")
 
 [node name="GrassCube4" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 7.5)
@@ -132,6 +147,7 @@ transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube4"]
+shape = SubResource("BoxShape3D_nhwx1")
 
 [node name="VisualCubes" type="Node" parent="Surroundings"]
 
