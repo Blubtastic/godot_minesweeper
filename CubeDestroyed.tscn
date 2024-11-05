@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp6e0aywkls4b"]
+[gd_scene load_steps=5 format=3 uid="uid://bp6e0aywkls4b"]
 
 [ext_resource type="PackedScene" uid="uid://bu4y4qv38mhd2" path="res://CubePiece.tscn" id="1_grq2d"]
 [ext_resource type="Script" path="res://explosion_force.gd" id="1_lxr70"]
+[ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://ExplosionEffect.tscn" id="3_gqjvb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3t23w"]
 radius = 1.0
@@ -18,6 +19,9 @@ shape = SubResource("SphereShape3D_3t23w")
 [node name="Timer" type="Timer" parent="ExplosionForce"]
 wait_time = 0.1
 autostart = true
+
+[node name="Explosion" parent="." instance=ExtResource("3_gqjvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615501, 0)
 
 [node name="CubePiece" parent="." instance=ExtResource("1_grq2d")]
 

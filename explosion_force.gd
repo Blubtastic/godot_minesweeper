@@ -1,6 +1,5 @@
 extends Area3D
 
-
 func _physics_process(_delta: float) -> void:
 	for o in get_overlapping_bodies():
 		if o is RigidBody3D:

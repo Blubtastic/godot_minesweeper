@@ -83,6 +83,7 @@ func trigger_explosion():
 	cube_destroyed.global_position = Vector3(global_position.x / 1000, 0.7, global_position.y)
 	add_child(cube_destroyed)
 	CubeMesh.visible = false
+	NearbyMinesLabel.visible = false
 
 func toggle_flag():
 	is_flagged = !is_flagged
