@@ -3,7 +3,7 @@ extends Node3D
 @onready var GameTimer: Label = $"../Timer"
 @onready var Camera: Camera3D = $"../Camera3D"
 @onready var Background: ColorRect = $"../WinBackground"
-@onready var WinLabel: Label = $"../YOUWON"
+@onready var WinLabel: Label = $"../GameWonLabel"
 const CubeScene := preload("res://cube/cube.tscn")
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16

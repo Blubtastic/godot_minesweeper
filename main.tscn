@@ -93,7 +93,7 @@ offset_right = 60.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_bat4j")
 
-[node name="YOUWON" type="Label" parent="."]
+[node name="GameWonLabel" type="Label" parent="."]
 z_index = 10
 offset_left = 330.0
 offset_top = 600.0
