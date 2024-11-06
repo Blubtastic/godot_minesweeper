@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=16 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://cube/cube.gd" id="1_6dv3v"]
 [ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://cube/cube_mesh.tres" id="2_w48q4"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bbvy78gqnhud1" path="res://assets/audio/place-flag.wav" id="8_bfq7g"]
 [ext_resource type="AudioStream" uid="uid://dya4t4p2oap3d" path="res://assets/audio/remove-flag.wav" id="9_p8p1n"]
 [ext_resource type="AudioStream" uid="uid://blr22e80lqmjd" path="res://assets/audio/hover-cube.wav" id="10_l0bv5"]
+[ext_resource type="AudioStream" uid="uid://cl6qd5gf6x7j3" path="res://assets/audio/explosion.wav" id="11_71ddj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
@@ -72,6 +73,11 @@ stream = ExtResource("9_p8p1n")
 [node name="HighlightCube" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_a7n7b")
 volume_db = -25.377
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_71ddj")
+volume_db = -20.0
+bus = &"Explosion"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

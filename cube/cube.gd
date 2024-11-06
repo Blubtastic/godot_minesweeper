@@ -13,6 +13,7 @@ extends StaticBody3D
 @onready var PlaceFlagAudio: AudioStreamPlayer = $PlaceFlag
 @onready var RemoveFlagAudio: AudioStreamPlayer = $RemoveFlag
 @onready var HighlightCubeAudio: AudioStreamPlayer = $HighlightCube
+@onready var ExplosionAudio: AudioStreamPlayer = $Explosion
 var is_cleared := false
 var is_flagged := false
 var simulate_gravity := false
@@ -72,6 +73,7 @@ func reveal_cube(play_sound: bool = false):
 		CubeScanner.update_cube()
 		if is_bomb:
 			game_over.emit()
+			ExplosionAudio.play()
 			animateExplosion()
 
 func animateExplosion():
