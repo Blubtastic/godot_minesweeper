@@ -9,7 +9,6 @@ background_mode = 1
 background_color = Color(0, 0.49736, 0.621094, 1)
 glow_enabled = true
 adjustment_enabled = true
-adjustment_saturation = 8.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dxy76"]
 
