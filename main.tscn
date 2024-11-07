@@ -1,11 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=18 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="2_cegsg"]
+[ext_resource type="BoxMesh" uid="uid://dn8ayd0wx7qt6" path="res://cube/cube_mesh_radioactive.tres" id="3_pkvbq"]
 
 [sub_resource type="Environment" id="Environment_bmdjw"]
 background_mode = 1
 background_color = Color(0, 0.49736, 0.621094, 1)
+glow_enabled = true
+adjustment_enabled = true
+adjustment_saturation = 8.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dxy76"]
 
@@ -205,7 +209,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(0.258212, 0, 0.966088, 0, 1, 0, -0.966088, 0, 0.258212, 2.54809, 2, -1.83069)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube2"]
-mesh = SubResource("BoxMesh_bcama")
+mesh = ExtResource("3_pkvbq")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube2"]

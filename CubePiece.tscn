@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://487bysnuw5km"]
+[gd_scene load_steps=5 format=3 uid="uid://487bysnuw5km"]
+
+[ext_resource type="Material" uid="uid://nejln00ijaj6" path="res://cube/radioactive_material.tres" id="1_6xclc"]
 
 [sub_resource type="Curve" id="Curve_xwc5e"]
 _data = [Vector2(0.00371747, 0.0102041), 0.0, 1.0015, 0, 0, Vector2(0.501859, 0.497959), 0.999266, 0.999266, 0, 0, Vector2(1, 1), 1.00036, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_my20j"]
+material = ExtResource("1_6xclc")
 radial_steps = 4
 sections = 4
 section_rings = 6
