@@ -59,6 +59,8 @@ alpha_curve = SubResource("CurveTexture_2rqqi")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5gp4"]
 transparency = 1
 vertex_color_use_as_albedo = true
+emission = Color(0.523438, 1, 0, 1)
+emission_energy_multiplier = 2.02
 
 [sub_resource type="SphereMesh" id="SphereMesh_65gga"]
 material = SubResource("StandardMaterial3D_q5gp4")
