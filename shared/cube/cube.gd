@@ -1,12 +1,11 @@
 extends StaticBody3D
 
-@onready var CubeDestroyed = preload("res://CubeDestroyed.tscn")
-@export var mesh: Mesh
+@onready var CubeDestroyed = preload("res://shared/cube/CubeDestroyed.tscn")
 @export var flatMesh: Mesh
 @export var bombMesh: Mesh
-@export var radioactiveMesh: Mesh
 @export var is_bomb := false
-@onready var CubeMesh: MeshInstance3D = $CubeMesh
+
+@onready var CubeMesh: MeshInstance3D = $Mesh
 @onready var CubeScanner: Area3D = $CubeScanner
 @onready var NearbyMinesLabel: Label3D = $NearbyMinesLabel
 @onready var RevealCubeAudio: AudioStreamPlayer = $RevealCube
@@ -14,18 +13,19 @@ extends StaticBody3D
 @onready var RemoveFlagAudio: AudioStreamPlayer = $RemoveFlag
 @onready var HighlightCubeAudio: AudioStreamPlayer = $HighlightCube
 @onready var ExplosionAudio: AudioStreamPlayer = $Explosion
+
 var is_cleared := false
 var is_flagged := false
 var simulate_gravity := false
 var velocity := Vector3.ZERO
 var gravity := Vector3.DOWN * 9.8
+
 signal game_over
 signal cube_was_cleared
 
 func _ready() -> void:
-	CubeMesh.mesh = mesh.duplicate()
+	CubeMesh.mesh = CubeMesh.mesh.duplicate()
 	CubeMesh.mesh.material = CubeMesh.get_active_material(0).duplicate()
-	CubeMesh.mesh.material.emission = Color(0.3, 0.3, 0.3)
 
 func _physics_process(delta):
 	if simulate_gravity:
@@ -77,7 +77,6 @@ func reveal_cube(play_sound: bool = false):
 			animateExplosion()
 
 func animateExplosion():
-	CubeMesh.mesh = radioactiveMesh
 	unhighlight_cube()
 
 func trigger_explosion():

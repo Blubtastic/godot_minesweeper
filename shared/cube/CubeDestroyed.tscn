@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp6e0aywkls4b"]
+
+[ext_resource type="Script" path="res://shared/cube/explosion_force.gd" id="1_lxr70"]
+[ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://shared/cube/CubePiece.tscn" id="3_eg5nc"]
+[ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://shared/cube/ExplosionEffect.tscn" id="3_gqjvb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3t23w"]
+radius = 1.0
+
+[node name="CubeDestroyed" type="Node3D"]
+
+[node name="ExplosionForce" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+script = ExtResource("1_lxr70")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionForce"]
+transform = Transform3D(1.41917, 0, 0, 0, 1.41917, 0, 0, 0, 1.41917, 0, 0, 0)
+shape = SubResource("SphereShape3D_3t23w")
+
+[node name="Timer" type="Timer" parent="ExplosionForce"]
+wait_time = 0.1
+autostart = true
+
+[node name="ExplosionEffect" parent="." instance=ExtResource("3_gqjvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615501, 0)
+
+[node name="CubePiece" parent="." instance=ExtResource("3_eg5nc")]
+
+[node name="CubePiece2" parent="." instance=ExtResource("3_eg5nc")]
+
+[node name="CubePiece3" parent="." instance=ExtResource("3_eg5nc")]
+
+[node name="CubePiece4" parent="." instance=ExtResource("3_eg5nc")]
+
+[node name="CubePiece5" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(0.658859, -0.503758, -0.558688, 0.372676, -0.426556, 0.824113, -0.653466, -0.751184, -0.0933012, 0, 0, 0)
+
+[node name="CubePiece6" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(0.658859, -0.503758, -0.558688, 0.372676, -0.426556, 0.824113, -0.653466, -0.751184, -0.0933012, 0, 0, 0)
+
+[node name="CubePiece7" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(0.658859, -0.503758, -0.558688, 0.372676, -0.426556, 0.824113, -0.653466, -0.751184, -0.0933012, 0, 0, 0)
+
+[node name="CubePiece8" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(0.658859, -0.503758, -0.558688, 0.372676, -0.426556, 0.824113, -0.653466, -0.751184, -0.0933012, 0, 0, 0)
+
+[node name="CubePiece9" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.824113, 0.839331, 0.533714, -0.103311, 0, 0, 0)
+
+[node name="CubePiece10" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.824113, 0.839331, 0.533714, -0.103311, 0, 0, 0)
+
+[node name="CubePiece11" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.824113, 0.839331, 0.533714, -0.103311, 0, 0, 0)
+
+[node name="CubePiece12" parent="." instance=ExtResource("3_eg5nc")]
+transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.824113, 0.839331, 0.533714, -0.103311, 0, 0, 0)
+
+[connection signal="timeout" from="ExplosionForce/Timer" to="ExplosionForce" method="_on_timer_timeout"]
