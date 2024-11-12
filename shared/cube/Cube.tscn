@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=17 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://shared/cube/cube.gd" id="1_q4yb4"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://shared/cube/cleared.tres" id="2_m3nde"]
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://shared/cube/bomb.tres" id="3_o6pme"]
-[ext_resource type="BoxMesh" uid="uid://b8huspb6fwokg" path="res://shared/cube/initial.tres" id="4_7clsg"]
+[ext_resource type="Texture2D" uid="uid://ypba4kv5b1dy" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
 [ext_resource type="Script" path="res://shared/cube/cube_scanner.gd" id="5_s41nj"]
 [ext_resource type="AudioStream" uid="uid://bjpkhrcmt7lw" path="res://assets/audio/open-tile.wav" id="6_o0a8b"]
 [ext_resource type="AudioStream" uid="uid://bbvy78gqnhud1" path="res://assets/audio/place-flag.wav" id="7_eeb88"]
@@ -12,6 +12,16 @@
 [ext_resource type="AudioStream" uid="uid://cl6qd5gf6x7j3" path="res://assets/audio/explosion.wav" id="10_llvf4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
+albedo_color = Color(0.56, 0.56, 0.56, 1)
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.77
+normal_enabled = true
+normal_texture = ExtResource("4_wbqsf")
+
+[sub_resource type="BoxMesh" id="BoxMesh_npjma"]
+material = SubResource("StandardMaterial3D_cu7mv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y1sac"]
 size = Vector3(2, 0.6, 2)
@@ -41,7 +51,7 @@ bombMesh = ExtResource("3_o6pme")
 shape = SubResource("BoxShape3D_aokb8")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-mesh = ExtResource("4_7clsg")
+mesh = SubResource("BoxMesh_npjma")
 
 [node name="NearbyMinesLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0.515925, 0)

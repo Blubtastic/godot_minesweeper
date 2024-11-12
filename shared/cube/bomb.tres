@@ -1,8 +1,11 @@
-[gd_resource type="BoxMesh" load_steps=2 format=3 uid="uid://b64carpagmht0"]
+[gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://b64carpagmht0"]
+
+[ext_resource type="Texture2D" uid="uid://ypba4kv5b1dy" path="res://shared/cube/styrofoam_normalmap.tres" id="1_t7ifa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
 albedo_color = Color(0.267578, 0.267578, 0.267578, 1)
 roughness = 0.6
+normal_texture = ExtResource("1_t7ifa")
 
 [resource]
 material = SubResource("StandardMaterial3D_cu7mv")
