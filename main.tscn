@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=22 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
+[ext_resource type="Script" path="res://restart_button.gd" id="3_2ccww"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
 
@@ -12,11 +13,6 @@ sky_material = SubResource("ProceduralSkyMaterial_25xtt")
 background_color = Color(0, 0.49736, 0.621094, 1)
 sky = SubResource("Sky_okh5a")
 glow_enabled = true
-
-[sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
-font_size = 32
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bat4j"]
 font_size = 64
@@ -43,6 +39,11 @@ grow_amount = -10.044
 [sub_resource type="PlaneMesh" id="PlaneMesh_j0lvn"]
 material = SubResource("StandardMaterial3D_gmdqd")
 size = Vector2(100, 100)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ar8to"]
 albedo_color = Color(0.00784314, 0.278431, 0, 1)
@@ -100,14 +101,6 @@ offset_right = 10000.0
 offset_bottom = 10000.0
 color = Color(0, 0, 0, 0.388235)
 
-[node name="Controls" type="Label" parent="."]
-offset_left = 22.0
-offset_top = 84.0
-offset_right = 522.0
-offset_bottom = 184.0
-text = "⟳: r"
-label_settings = SubResource("LabelSettings_oy0yb")
-
 [node name="Timer" type="Label" parent="."]
 offset_left = 20.0
 offset_right = 60.0
@@ -129,6 +122,30 @@ autowrap_mode = 3
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -0.5, 8)
 mesh = SubResource("PlaneMesh_j0lvn")
+
+[node name="RestartButton" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Button" type="Button" parent="RestartButton"]
+offset_left = -66.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 72.0
+script = ExtResource("3_2ccww")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="RestartButton/Button"]
+offset_left = 12.0
+offset_right = 87.0
+offset_bottom = 52.0
+text = "⟳: r"
+label_settings = SubResource("LabelSettings_oy0yb")
 
 [node name="Surroundings" type="Node" parent="."]
 
