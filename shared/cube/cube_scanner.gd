@@ -12,6 +12,7 @@ const COLORS: Array[Color] = [
 ]
 @onready var Cube: StaticBody3D = $".."
 @onready var NearbyMinesLabel: Label3D = $"../NearbyMinesLabel"
+
 var overlapping_cubes: Array[Node3D]
 var can_auto_clear: bool = false
 

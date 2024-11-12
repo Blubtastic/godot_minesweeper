@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://b8yejfq3fcemn"]
 
-[ext_resource type="Script" path="res://explosion_effect.gd" id="1_g7e70"]
+[ext_resource type="Script" path="res://shared/cube/explosion_effect.gd" id="1_g7e70"]
 
 [sub_resource type="Curve" id="Curve_7psm2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.689498, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -103,7 +103,7 @@ color = Color(1, 0.721569, 0, 1)
 color_ramp = SubResource("GradientTexture1D_v7bsb")
 emission_curve = SubResource("CurveTexture_11uv8")
 
-[node name="Explosion" type="Node3D"]
+[node name="ExplosionEffect" type="Node3D"]
 script = ExtResource("1_g7e70")
 
 [node name="Debris" type="GPUParticles3D" parent="."]
