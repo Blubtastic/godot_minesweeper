@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://shared/cube/cube.gd" id="1_q4yb4"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://shared/cube/cleared.tres" id="2_m3nde"]
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://shared/cube/bomb.tres" id="3_o6pme"]
-[ext_resource type="Texture2D" uid="uid://ypba4kv5b1dy" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
+[ext_resource type="Texture2D" uid="uid://crr2u5c28jjvf" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
 [ext_resource type="Script" path="res://shared/cube/cube_scanner.gd" id="5_s41nj"]
 [ext_resource type="AudioStream" uid="uid://bjpkhrcmt7lw" path="res://assets/audio/open-tile.wav" id="6_o0a8b"]
 [ext_resource type="AudioStream" uid="uid://bbvy78gqnhud1" path="res://assets/audio/place-flag.wav" id="7_eeb88"]
@@ -19,6 +19,8 @@ emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.77
 normal_enabled = true
 normal_texture = ExtResource("4_wbqsf")
+heightmap_scale = -16.0
+refraction_scale = 0.08
 
 [sub_resource type="BoxMesh" id="BoxMesh_npjma"]
 material = SubResource("StandardMaterial3D_cu7mv")

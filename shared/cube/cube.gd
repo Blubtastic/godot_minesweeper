@@ -16,9 +16,13 @@ extends StaticBody3D
 
 var is_cleared := false
 var is_flagged := false
+var is_hovering := false
 var simulate_gravity := false
 var velocity := Vector3.ZERO
 var gravity := Vector3.DOWN * 9.8
+var original_albedo: Color
+var bright_albedo : Color = Color(0.8, 0.8, 0.8)
+var start_material
 
 signal game_over
 signal cube_was_cleared
@@ -26,6 +30,8 @@ signal cube_was_cleared
 func _ready() -> void:
 	CubeMesh.mesh = CubeMesh.mesh.duplicate()
 	CubeMesh.mesh.material = CubeMesh.get_active_material(0).duplicate()
+	start_material = CubeMesh.mesh.material
+	original_albedo = start_material.albedo_color
 
 func _physics_process(delta):
 	if simulate_gravity:
@@ -72,17 +78,18 @@ func reveal_cube(play_sound: bool = false):
 		cube_was_cleared.emit(self)
 		CubeScanner.update_cube()
 		if is_bomb:
-			game_over.emit()
-			ExplosionAudio.play()
-			animateExplosion()
+			trigger_game_over()
+			
 
-func animateExplosion():
+func trigger_game_over():
+	game_over.emit()
+	ExplosionAudio.play()
 	unhighlight_cube()
 
 func trigger_explosion():
 	var cube_destroyed = CubeDestroyed.instantiate()
-	cube_destroyed.global_position = Vector3(global_position.x / 1000, 0.7, global_position.y)
 	add_child(cube_destroyed)
+	cube_destroyed.global_position = Vector3(global_position.x, 0.7, global_position.z)
 	CubeMesh.visible = false
 	NearbyMinesLabel.visible = false
 
@@ -100,9 +107,9 @@ func enable_gravity():
 
 func highlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-	CubeMesh.mesh.material.emission_enabled = true
+	start_material.albedo_color  = bright_albedo
 	HighlightCubeAudio.play()
 
 func unhighlight_cube():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-	CubeMesh.mesh.material.emission_enabled = false
+	start_material.albedo_color = original_albedo

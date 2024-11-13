@@ -2,7 +2,6 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vvcob"]
 noise_type = 0
-frequency = 0.02
 fractal_type = 3
 domain_warp_enabled = true
 
