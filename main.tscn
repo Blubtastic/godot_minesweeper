@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
 [ext_resource type="Script" path="res://restart_button.gd" id="3_2ccww"]
+[ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://shared/cube/ExplosionEffect.tscn" id="4_wedpj"]
+[ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://shared/cube/CubePiece.tscn" id="5_v8as3"]
+[ext_resource type="PackedScene" uid="uid://bp6e0aywkls4b" path="res://shared/cube/CubeDestroyed.tscn" id="6_n37dy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
 
@@ -65,16 +68,6 @@ size = Vector3(16, 1, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bcama"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3t0iq"]
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 2.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_hck6f"]
-material = SubResource("StandardMaterial3D_3t0iq")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0qlml"]
-
 [node name="Main" type="Node"]
 
 [node name="CubeGrid" type="Node3D" parent="."]
@@ -88,7 +81,7 @@ far = 1000.0
 script = ExtResource("1_36mps")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.462226, 0.855133, 0.234721, 0.0094812, -0.269446, 0.962969, 0.886711, -0.442884, -0.132653, 0, 10, 0)
+transform = Transform3D(0.46225, 0.85442, 0.237259, 0.00826283, -0.271699, 0.962347, 0.886711, -0.442884, -0.132653, 0, 10, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -133,6 +126,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="Button" type="Button" parent="RestartButton"]
+layout_mode = 0
 offset_left = -66.0
 offset_top = 20.0
 offset_right = 20.0
@@ -141,6 +135,7 @@ script = ExtResource("3_2ccww")
 metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="RestartButton/Button"]
+layout_mode = 0
 offset_left = 12.0
 offset_right = 87.0
 offset_bottom = 52.0
@@ -201,6 +196,16 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube4"]
 metadata/_edit_lock_ = true
 
+[node name="VisualCube5" type="StaticBody3D" parent="Surroundings/VisualCubes"]
+transform = Transform3D(0.761663, 0, -0.647974, 0, 1, 0, 0.647974, 0, 0.761663, 4.35414, 1, 17.4168)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube5"]
+mesh = SubResource("BoxMesh_bcama")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube5"]
+metadata/_edit_lock_ = true
+
 [node name="VisualCube6" type="StaticBody3D" parent="Surroundings/VisualCubes"]
 transform = Transform3D(-0.0784243, 0, 0.99692, 0, 1, 0, -0.99692, 0, -0.0784243, 14.6851, 1, 16.8855)
 
@@ -209,16 +214,6 @@ mesh = SubResource("BoxMesh_bcama")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube6"]
-metadata/_edit_lock_ = true
-
-[node name="VisualCube5" type="StaticBody3D" parent="Surroundings/VisualCubes"]
-transform = Transform3D(-0.971097, 0, -0.238686, 0, 1, 0, 0.238686, 0, -0.971097, 2.74503, 1, 16.8534)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube5"]
-mesh = SubResource("BoxMesh_bcama")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube5"]
 metadata/_edit_lock_ = true
 
 [node name="VisualCube3" type="StaticBody3D" parent="Surroundings/VisualCubes"]
@@ -232,7 +227,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="VisualCube" type="StaticBody3D" parent="Surroundings/VisualCubes"]
-transform = Transform3D(0.738455, 0, 0.674302, 0, 1, 0, -0.674302, 0, 0.738455, 3.02081, 0.999999, -1.76319)
+transform = Transform3D(0.738455, 0, 0.674302, 0, 1, 0, -0.674302, 0, 0.738455, 3.57316, 0.999999, -1.76178)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube"]
 mesh = SubResource("BoxMesh_bcama")
@@ -241,13 +236,14 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube"]
 metadata/_edit_lock_ = true
 
-[node name="VisualCube2" type="StaticBody3D" parent="Surroundings/VisualCubes"]
-transform = Transform3D(0.258212, 0, 0.966088, 0, 1, 0, -0.966088, 0, 0.258212, 2.54809, 2, -1.83069)
+[node name="ExplosionEffect" parent="." instance=ExtResource("4_wedpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9089, 0, -4.24279)
+visible = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/VisualCubes/VisualCube2"]
-mesh = SubResource("BoxMesh_hck6f")
-metadata/_edit_lock_ = true
+[node name="CubePiece" parent="." instance=ExtResource("5_v8as3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.648, 0, -3.37101)
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube2"]
-shape = SubResource("BoxShape3D_0qlml")
-metadata/_edit_lock_ = true
+[node name="CubeDestroyed" parent="." instance=ExtResource("6_n37dy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9209, 0, -2.3964)
+visible = false
