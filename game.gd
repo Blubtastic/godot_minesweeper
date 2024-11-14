@@ -71,6 +71,7 @@ func on_game_over():
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
 			node.reveal_cube()
+			node.remove_flag()
 	
 	Camera.start_shake(.4, 1.0)
 	for node in cubes:
