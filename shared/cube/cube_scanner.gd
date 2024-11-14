@@ -12,6 +12,8 @@ const COLORS: Array[Color] = [
 ]
 @onready var Cube: StaticBody3D = $".."
 @onready var NearbyMinesLabel: Label3D = $"../NearbyMinesLabel"
+@onready var flag_sprite: Sprite3D = $"../Flag"
+@onready var mine_sprite: Sprite3D = $"../Mine"
 
 var overlapping_cubes: Array[Node3D]
 var can_auto_clear: bool = false
@@ -24,7 +26,7 @@ func update_cube() -> void:
 	if Cube.is_cleared:
 		var nearby_mines_text = str(nearby_mines) if nearby_mines else ''
 		var nearby_mines_color = COLORS[clamp(nearby_mines, 1, COLORS.size()) - 1]
-		var text = '💣' if Cube.is_bomb else nearby_mines_text
+		var text = '' if Cube.is_bomb else nearby_mines_text
 		var color = Color(1, 1, 1) if Cube.is_bomb else nearby_mines_color
 		update_label(text, color)
 		if !nearby_mines:
@@ -40,3 +42,4 @@ func update_label(text: String, color: Color) -> void:
 	NearbyMinesLabel.text = text
 	NearbyMinesLabel.modulate = color
 	NearbyMinesLabel.outline_modulate = color
+	flag_sprite.visible = false

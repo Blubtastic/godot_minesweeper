@@ -5,6 +5,7 @@ extends StaticBody3D
 @export var bombMesh: Mesh
 @export var is_bomb := false
 
+
 @onready var CubeMesh: MeshInstance3D = $Mesh
 @onready var CubeScanner: Area3D = $CubeScanner
 @onready var NearbyMinesLabel: Label3D = $NearbyMinesLabel
@@ -13,6 +14,9 @@ extends StaticBody3D
 @onready var RemoveFlagAudio: AudioStreamPlayer = $RemoveFlag
 @onready var HighlightCubeAudio: AudioStreamPlayer = $HighlightCube
 @onready var ExplosionAudio: AudioStreamPlayer = $Explosion
+@onready var mine_sprite: Sprite3D = $Mine
+@onready var flag_sprite: Sprite3D = $Flag
+
 
 var is_cleared := false
 var is_flagged := false
@@ -79,7 +83,7 @@ func reveal_cube(play_sound: bool = false):
 		CubeScanner.update_cube()
 		if is_bomb:
 			trigger_game_over()
-			
+			mine_sprite.visible = true
 
 func trigger_game_over():
 	game_over.emit()
@@ -91,15 +95,20 @@ func trigger_explosion():
 	add_child(cube_destroyed)
 	cube_destroyed.global_position = Vector3(global_position.x, 0.7, global_position.z)
 	CubeMesh.visible = false
-	NearbyMinesLabel.visible = false
+	mine_sprite.visible = false
+	flag_sprite.visible = false
 
 func toggle_flag():
 	is_flagged = !is_flagged
-	NearbyMinesLabel.text = "🚩" if is_flagged else ""
+	flag_sprite.visible = true if is_flagged else false
 	if is_flagged:
 		PlaceFlagAudio.play()
 	else:
 		RemoveFlagAudio.play(0.15)
+
+func remove_flag():
+	is_flagged = false
+	flag_sprite.visible = false
 
 func enable_gravity():
 	#simulate_gravity = true

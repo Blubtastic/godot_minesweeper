@@ -1,6 +1,6 @@
 [gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://c466clxudld4s"]
 
-[ext_resource type="Texture2D" uid="uid://crr2u5c28jjvf" path="res://shared/cube/styrofoam_normalmap.tres" id="1_3mq4k"]
+[ext_resource type="Texture2D" path="res://shared/cube/styrofoam_normalmap.tres" id="1_3mq4k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
 albedo_color = Color(0.779297, 0.779297, 0.779297, 1)

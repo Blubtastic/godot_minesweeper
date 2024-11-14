@@ -1,15 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=19 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://shared/cube/cube.gd" id="1_q4yb4"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://shared/cube/cleared.tres" id="2_m3nde"]
 [ext_resource type="BoxMesh" uid="uid://b64carpagmht0" path="res://shared/cube/bomb.tres" id="3_o6pme"]
-[ext_resource type="Texture2D" uid="uid://crr2u5c28jjvf" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
+[ext_resource type="Texture2D" uid="uid://utpxa53ugv7d" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
 [ext_resource type="Script" path="res://shared/cube/cube_scanner.gd" id="5_s41nj"]
 [ext_resource type="AudioStream" uid="uid://bjpkhrcmt7lw" path="res://assets/audio/open-tile.wav" id="6_o0a8b"]
 [ext_resource type="AudioStream" uid="uid://bbvy78gqnhud1" path="res://assets/audio/place-flag.wav" id="7_eeb88"]
 [ext_resource type="AudioStream" uid="uid://dya4t4p2oap3d" path="res://assets/audio/remove-flag.wav" id="8_pc8bq"]
 [ext_resource type="AudioStream" uid="uid://blr22e80lqmjd" path="res://assets/audio/hover-cube.wav" id="9_fg1ko"]
 [ext_resource type="AudioStream" uid="uid://cl6qd5gf6x7j3" path="res://assets/audio/explosion.wav" id="10_llvf4"]
+[ext_resource type="Texture2D" uid="uid://bxnym2xl4bk16" path="res://shared/cube/mine.png" id="11_n6pam"]
+[ext_resource type="Texture2D" uid="uid://d2ddjfojqn6ka" path="res://shared/cube/flag.png" id="12_bksym"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aokb8"]
 
@@ -87,6 +89,16 @@ volume_db = -25.377
 stream = ExtResource("10_llvf4")
 volume_db = -20.0
 bus = &"Explosion"
+
+[node name="Mine" type="Sprite3D" parent="."]
+transform = Transform3D(0.28, 0, 0, 0, -1.22392e-08, -0.28, 0, 0.28, -1.22392e-08, 0, 0.51, 0)
+visible = false
+texture = ExtResource("11_n6pam")
+
+[node name="Flag" type="Sprite3D" parent="."]
+transform = Transform3D(-1.74846e-08, 0.4, 1.74846e-08, 0, -1.74846e-08, 0.4, 0.4, 1.74846e-08, 7.64274e-16, 0, 0.51, 0)
+visible = false
+texture = ExtResource("12_bksym")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
