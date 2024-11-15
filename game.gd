@@ -76,7 +76,6 @@ func on_game_over():
 	Camera.start_shake(.4, 1.0)
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
-			node.enable_gravity()
 			var timer2 = get_tree().create_timer(drop_intensity)
 			await timer2.timeout
 

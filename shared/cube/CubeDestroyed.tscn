@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp6e0aywkls4b"]
+[gd_scene load_steps=6 format=3 uid="uid://bp6e0aywkls4b"]
 
 [ext_resource type="Script" path="res://shared/cube/explosion_force.gd" id="1_lxr70"]
 [ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://shared/cube/CubePiece.tscn" id="3_eg5nc"]
 [ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://shared/cube/ExplosionEffect.tscn" id="3_gqjvb"]
+[ext_resource type="AudioStream" uid="uid://cl6qd5gf6x7j3" path="res://assets/audio/explosion.wav" id="4_atccu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3t23w"]
 radius = 1.0
@@ -55,5 +56,10 @@ transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.82
 
 [node name="CubePiece12" parent="." instance=ExtResource("3_eg5nc")]
 transform = Transform3D(-0.395773, 0.730205, 0.556924, 0.372676, -0.426556, 0.824113, 0.839331, 0.533714, -0.103311, 0, 0, 0)
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_atccu")
+volume_db = -20.0
+bus = &"Explosion"
 
 [connection signal="timeout" from="ExplosionForce/Timer" to="ExplosionForce" method="_on_timer_timeout"]
