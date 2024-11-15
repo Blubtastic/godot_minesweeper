@@ -12,6 +12,7 @@ extends StaticBody3D
 @onready var top_mesh: MeshInstance3D = $TopMesh
 
 var is_bomb: bool = false
+var has_exploded: bool = false
 var is_cleared: bool = false
 var is_flagged: bool = false
 
@@ -63,7 +64,7 @@ func reveal_cube(play_sound: bool = false):
 			reveal_cube_audio.play()
 		top_mesh.visible = false
 		nearby_mines_label.visible = true
-		transform = transform.translated(Vector3(0, -0.1, 0))
+		#transform = transform.translated(Vector3(0, -0.1, 0))
 		is_cleared = true;
 		cube_was_cleared.emit(self)
 		cube_scanner.update_cube()
@@ -72,12 +73,14 @@ func reveal_cube(play_sound: bool = false):
 			mine_sprite.visible = true
 
 func trigger_explosion():
-	explosion_audio.play()
-	var CubeDestroyed = cube_destroyed.instantiate()
-	add_child(CubeDestroyed)
-	CubeDestroyed.global_position = Vector3(global_position.x, 0.7, global_position.z)
-	top_mesh.visible = false
-	flag_sprite.visible = false
+	if !has_exploded:
+		explosion_audio.play()
+		var CubeDestroyed = cube_destroyed.instantiate()
+		add_child(CubeDestroyed)
+		CubeDestroyed.global_position = Vector3(global_position.x, 0.7, global_position.z)
+		top_mesh.visible = false
+		flag_sprite.visible = false
+		has_exploded = true
 
 func toggle_flag():
 	is_flagged = !is_flagged

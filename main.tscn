@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=26 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://shared/cube/ExplosionEffect.tscn" id="4_wedpj"]
 [ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://shared/cube/CubePiece.tscn" id="5_v8as3"]
 [ext_resource type="PackedScene" uid="uid://bp6e0aywkls4b" path="res://shared/cube/CubeDestroyed.tscn" id="6_n37dy"]
+[ext_resource type="Script" path="res://character_body_3d.gd" id="7_gcko1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
 
@@ -67,6 +68,18 @@ size = Vector3(16, 1, 10)
 size = Vector3(16, 1, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bcama"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r3ej6"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_06y1f"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlff2"]
+radius = 0.1
+height = 1.5
 
 [node name="Main" type="Node"]
 
@@ -146,6 +159,7 @@ label_settings = SubResource("LabelSettings_oy0yb")
 
 [node name="GrassCube" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -5.5)
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube"]
 transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -156,6 +170,7 @@ shape = SubResource("BoxShape3D_lcpia")
 
 [node name="GrassCube2" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 20.5)
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube2"]
 transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -166,6 +181,7 @@ shape = SubResource("BoxShape3D_xufji")
 
 [node name="GrassCube3" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20.5, 0, 7.5)
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube3"]
 transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -176,6 +192,7 @@ shape = SubResource("BoxShape3D_6ns8i")
 
 [node name="GrassCube4" type="StaticBody3D" parent="Surroundings"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 7.5)
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube4"]
 transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -247,3 +264,24 @@ visible = false
 [node name="CubeDestroyed" parent="." instance=ExtResource("6_n37dy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9209, 0, -2.3964)
 visible = false
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.97042, 1.4431, -0.896972)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("7_gcko1")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_r3ej6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_06y1f")
+
+[node name="Area3D" type="Area3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0968428, 0)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Area3D"]
+shape = SubResource("CapsuleShape3D_qlff2")
