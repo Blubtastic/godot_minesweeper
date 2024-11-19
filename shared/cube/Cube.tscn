@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://shared/cube/cube.gd" id="1_q4yb4"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://shared/cube/cleared.tres" id="2_m3nde"]
-[ext_resource type="Texture2D" uid="uid://utpxa53ugv7d" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
+[ext_resource type="Texture2D" uid="uid://crr2u5c28jjvf" path="res://shared/cube/styrofoam_normalmap.tres" id="4_wbqsf"]
 [ext_resource type="Script" path="res://shared/cube/top_mesh.gd" id="4_wdcma"]
 [ext_resource type="Script" path="res://shared/cube/cube_scanner.gd" id="5_s41nj"]
 [ext_resource type="AudioStream" uid="uid://bjpkhrcmt7lw" path="res://assets/audio/open-tile.wav" id="6_o0a8b"]
