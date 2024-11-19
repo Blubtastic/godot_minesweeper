@@ -47,6 +47,7 @@ func spawn_grid():
 			cube_instance.cube_was_cleared.connect(on_cube_was_cleared)
 			add_child(cube_instance)
 	cubes = get_tree().get_nodes_in_group("cubes")
+	cubes = cubes.filter(func(cube): return !(cube.isLoadingCleared or cube.isLoadingExploded) )
 
 func randomized_mines(ignore_index: int):
 	var mine_list := []

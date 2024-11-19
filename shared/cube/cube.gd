@@ -1,5 +1,8 @@
 extends StaticBody3D
 
+@export var isLoadingCleared: bool = false
+@export var isLoadingExploded: bool = false
+
 @onready var reveal_cube_audio: AudioStreamPlayer = $RevealCube
 @onready var place_flag_audio: AudioStreamPlayer = $PlaceFlag
 @onready var remove_flag_audio: AudioStreamPlayer = $RemoveFlag
@@ -18,6 +21,14 @@ var is_flagged: bool = false
 
 signal game_over
 signal cube_was_cleared
+
+func _ready():
+	if isLoadingCleared:
+		is_cleared = true
+		handle_uncleared_secondary_pressed()
+	if isLoadingExploded:
+		is_bomb = true
+		handle_uncleared_pressed()
 
 func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
