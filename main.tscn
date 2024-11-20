@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=29 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bp6e0aywkls4b" path="res://shared/cube/CubeDestroyed.tscn" id="6_n37dy"]
 [ext_resource type="Script" path="res://character_body_3d.gd" id="7_gcko1"]
 [ext_resource type="Script" path="res://loading_icon.gd" id="8_tg4vd"]
-[ext_resource type="PackedScene" uid="uid://cnor6jdbe28rj" path="res://shared/cube/Cube.tscn" id="9_lg7fh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
 
@@ -299,11 +298,3 @@ shape = SubResource("CapsuleShape3D_qlff2")
 position = Vector2(22, 976)
 texture = SubResource("GradientTexture2D_hhihx")
 script = ExtResource("8_tg4vd")
-
-[node name="CubeCleared" parent="." instance=ExtResource("9_lg7fh")]
-transform = Transform3D(-0.00724302, 0, 0.999974, 0, 1, 0, -0.999974, 0, -0.00724302, 7.56311, 0.5, 16.7917)
-isLoadingCleared = true
-
-[node name="CubeExploded" parent="." instance=ExtResource("9_lg7fh")]
-transform = Transform3D(-0.00724302, 0, 0.999974, 0, 1, 0, -0.999974, 0, -0.00724302, 9.65319, 0.5, 16.7766)
-isLoadingExploded = true
