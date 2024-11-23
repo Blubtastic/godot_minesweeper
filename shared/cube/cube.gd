@@ -75,7 +75,6 @@ func reveal_cube(play_sound: bool = false):
 			reveal_cube_audio.play()
 		top_mesh.visible = false
 		nearby_mines_label.visible = true
-		#transform = transform.translated(Vector3(0, -0.1, 0))
 		is_cleared = true;
 		cube_was_cleared.emit(self)
 		cube_scanner.update_cube()
@@ -85,6 +84,9 @@ func reveal_cube(play_sound: bool = false):
 
 func trigger_explosion():
 	if !has_exploded:
+		$Mesh.visible = false
+		$Node3D/Stains.visible = true
+		mine_sprite.transform = mine_sprite.transform.translated(Vector3(0, -1, 0))
 		explosion_audio.play()
 		var CubeDestroyed = cube_destroyed.instantiate()
 		add_child(CubeDestroyed)
