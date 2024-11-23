@@ -4,6 +4,7 @@ extends Node3D
 @onready var Camera: Camera3D = $"../Camera3D"
 @onready var Background: ColorRect = $"../WinBackground"
 @onready var WinLabel: Label = $"../GameWonLabel"
+@onready var player: Node3D = $"../Player"
 const CubeScene := preload("res://shared/cube/Cube.tscn")
 
 const GRID_WIDTH := 16
@@ -68,6 +69,7 @@ func set_mines(ignore_index):
 		cubes[i].is_bomb = mine_list[i]
 
 func on_game_over():
+	player.died()
 	game_over = true
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():

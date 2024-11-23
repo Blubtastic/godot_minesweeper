@@ -1,7 +1,5 @@
 extends RigidBody3D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-
 func _ready() -> void:
 	$MeshInstance3D.mesh.material.emission_energy_multiplier = 10
 
