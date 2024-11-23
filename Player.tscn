@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dqeksnc1bqwgt"]
+
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_fjkuh"]
+[ext_resource type="Script" path="res://player_death.gd" id="1_pp3vs"]
+[ext_resource type="Script" path="res://fade_emission_gradually.gd" id="3_jlho0"]
+[ext_resource type="PackedScene" uid="uid://drynt1383xlht" path="res://shared/cube/TrailVFX.tscn" id="3_rkr5s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r3ej6"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doy5s"]
+albedo_color = Color(0.43, 0.43, 0.43, 1)
+metallic = 1.0
+roughness = 0.83
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bqlam"]
+material = SubResource("StandardMaterial3D_doy5s")
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlff2"]
+radius = 0.1
+height = 1.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_obdjf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lqd42"]
+noise = SubResource("FastNoiseLite_obdjf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wta5e"]
+albedo_color = Color(0.43, 0.43, 0.43, 1)
+albedo_texture = SubResource("NoiseTexture2D_lqd42")
+metallic = 1.0
+roughness = 0.83
+emission_enabled = true
+emission = Color(1, 0.721569, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mp83p"]
+material = SubResource("StandardMaterial3D_wta5e")
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dw4xx"]
+radius = 0.3
+height = 1.5
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_pp3vs")
+
+[node name="AlivePlayer" type="CharacterBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_fjkuh")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlivePlayer"]
+shape = SubResource("CapsuleShape3D_r3ej6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AlivePlayer"]
+mesh = SubResource("CapsuleMesh_bqlam")
+
+[node name="Area3D" type="Area3D" parent="AlivePlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0968428, 0)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlivePlayer/Area3D"]
+shape = SubResource("CapsuleShape3D_qlff2")
+
+[node name="DeadPlayer" type="RigidBody3D" parent="AlivePlayer"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+inertia = Vector3(0.01, 1, 0.01)
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AlivePlayer/DeadPlayer"]
+mesh = SubResource("CapsuleMesh_mp83p")
+script = ExtResource("3_jlho0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlivePlayer/DeadPlayer"]
+shape = SubResource("CapsuleShape3D_dw4xx")
+disabled = true
+
+[node name="VFX" type="Node3D" parent="AlivePlayer/DeadPlayer"]
+
+[node name="TrailVFXTop" parent="AlivePlayer/DeadPlayer/VFX" instance=ExtResource("3_rkr5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512902, 0)
+
+[node name="TrailVFXTopCenter" parent="AlivePlayer/DeadPlayer/VFX" instance=ExtResource("3_rkr5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0148265, 0)
+
+[node name="TrailVFX2Bottom" parent="AlivePlayer/DeadPlayer/VFX" instance=ExtResource("3_rkr5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.505966, 0)
