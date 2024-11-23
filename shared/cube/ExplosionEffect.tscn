@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8yejfq3fcemn"]
+[gd_scene load_steps=11 format=3 uid="uid://b8yejfq3fcemn"]
 
 [ext_resource type="Script" path="res://shared/cube/explosion_effect.gd" id="1_g7e70"]
 
@@ -17,20 +17,23 @@ bottom_radius = 0.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.689498, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5gp4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvr4k"]
 transparency = 1
 vertex_color_use_as_albedo = true
 emission = Color(0.523438, 1, 0, 1)
 emission_energy_multiplier = 2.02
 
 [sub_resource type="SphereMesh" id="SphereMesh_65gga"]
-material = SubResource("StandardMaterial3D_q5gp4")
+material = SubResource("StandardMaterial3D_pvr4k")
 radial_segments = 8
 rings = 4
 
 [sub_resource type="Curve" id="Curve_2dncm"]
-_data = [Vector2(0, 0.0135783), 0.0, 0.0, 0, 0, Vector2(0.238462, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00319493), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.0135783), 0.0, 0.0, 0, 0, Vector2(0.200935, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00319493), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_4pro2"]
+colors = PackedColorArray(0.286275, 0.278431, 0.168627, 1, 0.29, 0.282073, 0.1711, 0)
 
 [sub_resource type="Curve" id="Curve_11igq"]
 _data = [Vector2(0, 0.0135783), 0.0, 0.0, 0, 0, Vector2(0.238462, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00319493), 0.0, 0.0, 0, 0]
@@ -78,6 +81,7 @@ scale_amount_min = 0.5
 scale_amount_max = 1.5
 scale_amount_curve = SubResource("Curve_2dncm")
 color = Color(0.286275, 0.278431, 0.168627, 1)
+color_ramp = SubResource("Gradient_4pro2")
 
 [node name="Fire" type="CPUParticles3D" parent="."]
 emitting = false
