@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://487bysnuw5km"]
+[gd_scene load_steps=9 format=3 uid="uid://487bysnuw5km"]
 
 [ext_resource type="PackedScene" uid="uid://drynt1383xlht" path="res://shared/cube/TrailVFX.tscn" id="1_12cox"]
 [ext_resource type="Script" path="res://shared/cube/cube_piece.gd" id="1_myocu"]
@@ -7,8 +7,14 @@
 _data = [Vector2(0.00371747, 0.0102041), 0.0, 1.0015, 0, 0, Vector2(0.501859, 0.497959), 0.999266, 0.999266, 0, 0, Vector2(1, 1), 1.00036, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_obdjf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6yoro"]
+noise = SubResource("FastNoiseLite_obdjf")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ah5kq"]
 albedo_color = Color(0.29, 0.29, 0.29, 1)
+albedo_texture = SubResource("NoiseTexture2D_6yoro")
 emission_enabled = true
 emission = Color(1, 0.721569, 0, 1)
 emission_energy_multiplier = 10.0
