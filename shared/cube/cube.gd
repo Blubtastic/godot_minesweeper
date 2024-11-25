@@ -21,6 +21,7 @@ var is_flagged: bool = false
 
 signal game_over
 signal cube_was_cleared
+signal cube_was_flagged
 
 func _ready():
 	if isLoadingCleared:
@@ -90,7 +91,7 @@ func trigger_explosion():
 		explosion_audio.play()
 		var CubeDestroyed = cube_destroyed.instantiate()
 		add_child(CubeDestroyed)
-		CubeDestroyed.global_position = Vector3(global_position.x, 0.7, global_position.z)
+		CubeDestroyed.global_position = Vector3(global_position.x, global_position.y+0.7, global_position.z)
 		top_mesh.visible = false
 		flag_sprite.visible = false
 		has_exploded = true
@@ -98,6 +99,7 @@ func trigger_explosion():
 func toggle_flag():
 	is_flagged = !is_flagged
 	flag_sprite.visible = true if is_flagged else false
+	cube_was_flagged.emit()
 	if is_flagged:
 		place_flag_audio.play()
 	else:
