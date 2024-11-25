@@ -1,6 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=26 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
+[ext_resource type="Script" path="res://hud.gd" id="1_aiomh"]
+[ext_resource type="Texture2D" uid="uid://bxnym2xl4bk16" path="res://shared/cube/mine.png" id="2_4ytne"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
 [ext_resource type="Script" path="res://restart_button.gd" id="3_2ccww"]
 [ext_resource type="PackedScene" uid="uid://dqeksnc1bqwgt" path="res://Player.tscn" id="7_l2ura"]
@@ -11,13 +13,13 @@ font_size = 64
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6oo4t"]
-font_size = 124
+[sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
+font_size = 24
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
-font_size = 32
+[sub_resource type="LabelSettings" id="LabelSettings_6oo4t"]
+font_size = 86
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
@@ -87,8 +89,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_aiomh")
 
-[node name="WinBackground" type="ColorRect" parent="HUD"]
+[node name="StartGame" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -208.0
+offset_right = 208.0
+offset_bottom = 115.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="MinesweeperLabel" type="Label" parent="HUD/StartGame"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
+text = "Minesweeper"
+
+[node name="Description" type="Label" parent="HUD/StartGame"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press a cube to start"
+
+[node name="InGameHUD" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Background" type="ColorRect" parent="HUD/InGameHUD"]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -97,44 +133,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.388235)
+color = Color(0, 0, 0, 0.705882)
 
-[node name="Timer" type="Label" parent="HUD"]
+[node name="Timer" type="Label" parent="HUD/InGameHUD"]
+layout_mode = 0
 offset_left = 20.0
 offset_right = 60.0
 offset_bottom = 88.0
 label_settings = SubResource("LabelSettings_bat4j")
 
-[node name="GameWonLabel" type="Label" parent="HUD"]
-z_index = 10
+[node name="RemainingMinesLabel" type="Label" parent="HUD/InGameHUD"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1.0
-offset_bottom = 170.0
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_6oo4t")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="RemainingMinesLabel" type="Label" parent="HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -23.0
-offset_right = 23.0
-offset_bottom = 55.0
-grow_horizontal = 2
+offset_left = 58.0
+offset_top = 94.0
+offset_right = 104.0
+offset_bottom = 139.0
 size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 32
 text = "10
 "
 
-[node name="RestartButton" type="Control" parent="HUD"]
+[node name="Flag" type="TextureRect" parent="HUD/InGameHUD"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 106.0
+offset_right = 49.0
+offset_bottom = 129.0
+texture = ExtResource("2_4ytne")
+expand_mode = 1
+
+[node name="RestartButton" type="Control" parent="HUD/InGameHUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -143,28 +171,111 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="Button" type="Button" parent="HUD/RestartButton"]
+[node name="Button" type="Button" parent="HUD/InGameHUD/RestartButton"]
 layout_mode = 0
-offset_left = -66.0
+offset_left = -111.0
 offset_top = 20.0
 offset_right = 20.0
-offset_bottom = 72.0
+offset_bottom = 57.0
 script = ExtResource("3_2ccww")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="HUD/RestartButton/Button"]
+[node name="Label" type="Label" parent="HUD/InGameHUD/RestartButton/Button"]
 layout_mode = 0
 offset_left = 12.0
-offset_right = 87.0
-offset_bottom = 52.0
-text = "⟳: r"
+offset_right = 114.0
+offset_bottom = 34.0
+text = "restart: r"
 label_settings = SubResource("LabelSettings_oy0yb")
+
+[node name="GameWonUI" type="VBoxContainer" parent="HUD/InGameHUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -98.5
+offset_right = 0.5
+offset_bottom = 98.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GameWon" type="Label" parent="HUD/InGameHUD/GameWonUI"]
+z_index = 10
+layout_mode = 2
+text = "You won!"
+label_settings = SubResource("LabelSettings_6oo4t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeUsed" type="Label" parent="HUD/InGameHUD/GameWonUI"]
+z_index = 10
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Time used: "
+
+[node name="Gap1" type="Control" parent="HUD/InGameHUD/GameWonUI"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TryAgain" type="Button" parent="HUD/InGameHUD/GameWonUI"]
+z_index = 10
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Try again"
+script = ExtResource("3_2ccww")
+
+[node name="Gap2" type="Control" parent="HUD/InGameHUD/GameWonUI"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="GameOverUI" type="VBoxContainer" parent="HUD/InGameHUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_right = 261.0
+offset_bottom = 152.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="GameOver" type="Label" parent="HUD/InGameHUD/GameOverUI"]
+z_index = 10
+layout_mode = 2
+text = "You died!"
+label_settings = SubResource("LabelSettings_6oo4t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gap1" type="Control" parent="HUD/InGameHUD/GameOverUI"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="TryAgain" type="Button" parent="HUD/InGameHUD/GameOverUI"]
+z_index = 10
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Try again (r)"
+script = ExtResource("3_2ccww")
 
 [node name="CubeGrid" type="Node3D" parent="."]
 script = ExtResource("2_cegsg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 7.8, 16, 7.5)
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 8.5, 17, 7.5)
 fov = 60.0
 near = 1.0
 far = 1000.0

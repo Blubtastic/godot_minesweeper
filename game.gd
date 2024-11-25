@@ -2,12 +2,16 @@ extends Node3D
 
 const CubeScene := preload("res://shared/cube/Cube.tscn")
 
-@onready var game_timer: Label = $"../HUD/Timer"
+@onready var game_timer: Label = $"../HUD/InGameHUD/Timer"
+@onready var background: ColorRect = $"../HUD/InGameHUD/Background"
+@onready var time_used: Label = $"../HUD/InGameHUD/GameWonUI/TimeUsed"
+@onready var game_won_ui: VBoxContainer = $"../HUD/InGameHUD/GameWonUI"
+@onready var game_over_ui: VBoxContainer = $"../HUD/InGameHUD/GameOverUI"
+@onready var remaining_mines_label: Label = $"../HUD/InGameHUD/RemainingMinesLabel"
+@onready var hud: Control = $"../HUD"
+
 @onready var camera: Camera3D = $"../Camera3D"
-@onready var background: ColorRect = $"../HUD/WinBackground"
-@onready var win_label: Label = $"../HUD/GameWonLabel"
 @onready var player: Node3D = $"../Player"
-@onready var remaining_mines_label: Label = $"../HUD/RemainingMinesLabel"
 
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16
@@ -76,6 +80,7 @@ func set_mines(ignore_index):
 func on_game_over():
 	player.died()
 	game_over = true
+	game_over_ui.visible = true
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
 			node.reveal_cube()
@@ -90,9 +95,11 @@ func on_game_over():
 func on_game_won():
 	game_won = true
 	background.visible = true
-	win_label.text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
+	time_used.text = "Time used: " + str("%.1f" % play_time, "s")
+	game_won_ui.visible = true
 
 func on_game_start(cleared_cube):
+	hud.game_started()
 	if !game_started:
 		game_started = true
 		cleared_cube.is_bomb = false
