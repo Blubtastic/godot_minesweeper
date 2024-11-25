@@ -12,6 +12,7 @@ const CubeScene := preload("res://shared/cube/Cube.tscn")
 
 @onready var camera: Camera3D = $"../Camera3D"
 @onready var player: Node3D = $"../Player"
+@onready var prevent_click_area: Control = $"../PreventClickArea"
 
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16
@@ -31,6 +32,8 @@ var number_of_flags := 0
 func _ready() -> void:
 	randomize()
 	spawn_grid()
+	await get_tree().create_timer(0.1).timeout
+	prevent_click_area.visible = false
 
 func _process(delta):
 	var game_in_progress = game_started and !game_won and !game_over
@@ -59,7 +62,7 @@ func spawn_grid():
 	cubes = get_tree().get_nodes_in_group("cubes")
 	cubes = cubes.filter(func(cube): return !(cube.isLoadingCleared or cube.isLoadingExploded) )
 
-func randomized_mines(ignore_index: int):
+func randomized_mines(ignore_indexes: Array[int]):
 	var mine_list := []
 	for i in range(NUMBER_OF_MINES):
 		mine_list.append(true)
@@ -67,20 +70,28 @@ func randomized_mines(ignore_index: int):
 	for i in range(GRID_WIDTH * GRID_HEIGHT - NUMBER_OF_MINES):
 		not_mine_list.append(false)
 	var fullList := mine_list + not_mine_list
+
+	for index in ignore_indexes:
+		fullList.pop_back()
 	fullList.shuffle()
-	while fullList[ignore_index] == true:
-		fullList.shuffle()
+	ignore_indexes.sort()
+	for index in ignore_indexes:
+		if fullList.size() > index:
+			fullList.insert(index, false)
+		else:
+			fullList.append(false)
 	return fullList
 
-func set_mines(ignore_index):
-	var mine_list = randomized_mines(ignore_index)
+func set_mines(ignore_indexes):
+	var mine_list = randomized_mines(ignore_indexes)
 	for i in range(cubes.size()):
 		cubes[i].is_bomb = mine_list[i]
 
 func on_game_over():
-	player.died()
+	#player.died()
 	game_over = true
 	game_over_ui.visible = true
+	on_game_won(false)
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
 			node.reveal_cube()
@@ -92,26 +103,31 @@ func on_game_over():
 			var timer2 = get_tree().create_timer(drop_intensity)
 			await timer2.timeout
 
-func on_game_won():
-	game_won = true
-	background.visible = true
+func on_game_won(is_win: bool):
+	game_won = is_win
+	background.visible = is_win
 	time_used.text = "Time used: " + str("%.1f" % play_time, "s")
-	game_won_ui.visible = true
+	game_won_ui.visible = is_win
 
 func on_game_start(cleared_cube):
 	hud.game_started()
 	if !game_started:
 		game_started = true
-		cleared_cube.is_bomb = false
-		var index_to_ignore = cubes.find(cleared_cube)
-		set_mines(index_to_ignore)
+		var nearby_cubes = cleared_cube.cube_scanner.get_cubes_around()
+		for mine in nearby_cubes:
+			mine.is_bomb = false
+		# loop and find all indexes
+		var indexes_to_ignore: Array[int] = []
+		for new_cleared_cube in nearby_cubes:
+			var new_index = cubes.find(new_cleared_cube)
+			indexes_to_ignore.append(new_index)
+		set_mines(indexes_to_ignore)
 
 func on_cube_was_cleared(cleared_cube):
 	on_game_start(cleared_cube)
-	
 	cleared_cubes.append(cleared_cube)
 	if !game_over and cleared_cubes.size() == NUMBER_OF_NOT_MINES:
-		on_game_won()
+		on_game_won(true)
 
 func on_cube_was_flagged():
 	number_of_flags = 0

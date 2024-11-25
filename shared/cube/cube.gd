@@ -18,6 +18,7 @@ var is_bomb: bool = false
 var has_exploded: bool = false
 var is_cleared: bool = false
 var is_flagged: bool = false
+var nearby_cubes: Array[Node3D]
 
 signal game_over
 signal cube_was_cleared

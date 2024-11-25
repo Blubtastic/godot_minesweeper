@@ -1,11 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=25 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://hud.gd" id="1_aiomh"]
 [ext_resource type="Texture2D" uid="uid://bxnym2xl4bk16" path="res://shared/cube/mine.png" id="2_4ytne"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
 [ext_resource type="Script" path="res://restart_button.gd" id="3_2ccww"]
-[ext_resource type="PackedScene" uid="uid://dqeksnc1bqwgt" path="res://Player.tscn" id="7_l2ura"]
 [ext_resource type="PackedScene" uid="uid://cnor6jdbe28rj" path="res://shared/cube/Cube.tscn" id="9_bu6qo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bat4j"]
@@ -387,9 +386,6 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube"]
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("7_l2ura")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.72464, 1.41623, -1.4194)
-
 [node name="LoadShit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9807, -18.8668, 8.35186)
 
@@ -397,6 +393,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9807, -18.8668, 8.35186)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.566983, 0.0059166, -0.0118837)
 isLoadingCleared = true
 
+[node name="RevealCube" parent="LoadShit/CubeCleared" index="5"]
+bus = &"Muted"
+
+[node name="PlaceFlag" parent="LoadShit/CubeCleared" index="6"]
+bus = &"Muted"
+
+[node name="RemoveFlag" parent="LoadShit/CubeCleared" index="7"]
+bus = &"Muted"
+
+[node name="HighlightCube" parent="LoadShit/CubeCleared" index="8"]
+bus = &"Muted"
+
+[node name="Explosion" parent="LoadShit/CubeCleared" index="9"]
+bus = &"Muted"
+
 [node name="CubeExploded" parent="LoadShit" instance=ExtResource("9_bu6qo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433016, 0.0059166, -0.0118837)
 isLoadingExploded = true
+
+[node name="RevealCube" parent="LoadShit/CubeExploded" index="5"]
+bus = &"Muted"
+
+[node name="PlaceFlag" parent="LoadShit/CubeExploded" index="6"]
+bus = &"Muted"
+
+[node name="RemoveFlag" parent="LoadShit/CubeExploded" index="7"]
+bus = &"Muted"
+
+[node name="HighlightCube" parent="LoadShit/CubeExploded" index="8"]
+bus = &"Muted"
+
+[node name="Explosion" parent="LoadShit/CubeExploded" index="9"]
+bus = &"Muted"
+
+[node name="PreventClickArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[editable path="LoadShit/CubeCleared"]
+[editable path="LoadShit/CubeExploded"]

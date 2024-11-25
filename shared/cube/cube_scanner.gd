@@ -18,6 +18,9 @@ const COLORS: Array[Color] = [
 var overlapping_cubes: Array[Node3D]
 var can_auto_clear: bool = false
 
+func get_cubes_around():
+	return get_overlapping_bodies()
+
 func update_cube() -> void:
 	overlapping_cubes = get_overlapping_bodies()
 	var nearby_items: Array[int] = get_nearby_cube_info(overlapping_cubes)
