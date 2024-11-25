@@ -1,11 +1,13 @@
 extends Node3D
 
-@onready var GameTimer: Label = $"../Timer"
-@onready var Camera: Camera3D = $"../Camera3D"
-@onready var Background: ColorRect = $"../WinBackground"
-@onready var WinLabel: Label = $"../GameWonLabel"
-@onready var player: Node3D = $"../Player"
 const CubeScene := preload("res://shared/cube/Cube.tscn")
+
+@onready var game_timer: Label = $"../HUD/Timer"
+@onready var camera: Camera3D = $"../Camera3D"
+@onready var background: ColorRect = $"../HUD/WinBackground"
+@onready var win_label: Label = $"../HUD/GameWonLabel"
+@onready var player: Node3D = $"../Player"
+@onready var remaining_mines_label: Label = $"../HUD/RemainingMinesLabel"
 
 const GRID_WIDTH := 16
 const GRID_HEIGHT := 16
@@ -20,6 +22,7 @@ var game_won: bool = false
 var play_time := 0.0
 var cubes
 var cleared_cubes := []
+var number_of_flags := 0
 
 func _ready() -> void:
 	randomize()
@@ -29,7 +32,8 @@ func _process(delta):
 	var game_in_progress = game_started and !game_won and !game_over
 	if game_in_progress:
 		play_time += delta
-	GameTimer.text = str("%.1f" % play_time, "s")
+	game_timer.text = str("%.1f" % play_time, "s")
+	remaining_mines_label.text = str(NUMBER_OF_MINES - number_of_flags)
 	
 	if Input.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
@@ -46,6 +50,7 @@ func spawn_grid():
 			cube_instance.transform.origin = cube_position
 			cube_instance.game_over.connect(on_game_over)
 			cube_instance.cube_was_cleared.connect(on_cube_was_cleared)
+			cube_instance.cube_was_flagged.connect(on_cube_was_flagged)
 			add_child(cube_instance)
 	cubes = get_tree().get_nodes_in_group("cubes")
 	cubes = cubes.filter(func(cube): return !(cube.isLoadingCleared or cube.isLoadingExploded) )
@@ -76,7 +81,7 @@ func on_game_over():
 			node.reveal_cube()
 			node.remove_flag()
 	
-	Camera.start_shake(.4, 1.0)
+	camera.start_shake(.4, 1.0)
 	for node in cubes:
 		if node and not node.is_queued_for_deletion():
 			var timer2 = get_tree().create_timer(drop_intensity)
@@ -84,8 +89,8 @@ func on_game_over():
 
 func on_game_won():
 	game_won = true
-	Background.visible = true
-	WinLabel.text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
+	background.visible = true
+	win_label.text = "You won! \n Time used: " + str("%.1f" % play_time, "s")
 
 func on_game_start(cleared_cube):
 	if !game_started:
@@ -100,3 +105,9 @@ func on_cube_was_cleared(cleared_cube):
 	cleared_cubes.append(cleared_cube)
 	if !game_over and cleared_cubes.size() == NUMBER_OF_NOT_MINES:
 		on_game_won()
+
+func on_cube_was_flagged():
+	number_of_flags = 0
+	for cube in cubes:
+		if cube.is_flagged:
+			number_of_flags += 1

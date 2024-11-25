@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2nnv1fv702yx"]
+[gd_scene load_steps=6 format=3 uid="uid://b2nnv1fv702yx"]
 
 [ext_resource type="Script" path="res://minesweeper_1.gd" id="1_m6qi2"]
-[ext_resource type="PackedScene" uid="uid://cnor6jdbe28rj" path="res://shared/cube/Cube.tscn" id="2_kkxgs"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_e2s6c"]
 device = -1
@@ -59,11 +58,3 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
 shortcut = SubResource("Shortcut_qyp22")
 text = "Minesweeper 2"
-
-[node name="CubeCleared" parent="." instance=ExtResource("2_kkxgs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-isLoadingCleared = true
-
-[node name="CubeExploded" parent="." instance=ExtResource("2_kkxgs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-isLoadingExploded = true

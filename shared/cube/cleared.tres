@@ -1,12 +1,21 @@
-[gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://c466clxudld4s"]
+[gd_resource type="BoxMesh" load_steps=4 format=3 uid="uid://c466clxudld4s"]
 
-[ext_resource type="Texture2D" uid="uid://crr2u5c28jjvf" path="res://shared/cube/styrofoam_normalmap.tres" id="1_3mq4k"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8et7m"]
+fractal_type = 2
+domain_warp_fractal_octaves = 10
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cu7mv"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wpatn"]
+seamless = true
+seamless_blend_skirt = 0.5
+as_normal_map = true
+noise = SubResource("FastNoiseLite_8et7m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4y4s"]
 albedo_color = Color(0.779297, 0.779297, 0.779297, 1)
 roughness = 0.6
-normal_texture = ExtResource("1_3mq4k")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_wpatn")
 ao_enabled = true
 
 [resource]
-material = SubResource("StandardMaterial3D_cu7mv")
+material = SubResource("StandardMaterial3D_p4y4s")

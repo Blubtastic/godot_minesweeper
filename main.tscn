@@ -1,23 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://d3s8hwqh7o2l1"]
+[gd_scene load_steps=24 format=3 uid="uid://d3s8hwqh7o2l1"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_36mps"]
 [ext_resource type="Script" path="res://game.gd" id="2_cegsg"]
 [ext_resource type="Script" path="res://restart_button.gd" id="3_2ccww"]
-[ext_resource type="PackedScene" uid="uid://b8yejfq3fcemn" path="res://shared/cube/ExplosionEffect.tscn" id="4_wedpj"]
-[ext_resource type="PackedScene" uid="uid://487bysnuw5km" path="res://shared/cube/CubePiece.tscn" id="5_v8as3"]
-[ext_resource type="PackedScene" uid="uid://bp6e0aywkls4b" path="res://shared/cube/CubeDestroyed.tscn" id="6_n37dy"]
 [ext_resource type="PackedScene" uid="uid://dqeksnc1bqwgt" path="res://Player.tscn" id="7_l2ura"]
-[ext_resource type="Script" path="res://loading_icon.gd" id="8_tg4vd"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
-
-[sub_resource type="Sky" id="Sky_okh5a"]
-sky_material = SubResource("ProceduralSkyMaterial_25xtt")
-
-[sub_resource type="Environment" id="Environment_bmdjw"]
-background_color = Color(0, 0.49736, 0.621094, 1)
-sky = SubResource("Sky_okh5a")
-glow_enabled = true
+[ext_resource type="PackedScene" uid="uid://cnor6jdbe28rj" path="res://shared/cube/Cube.tscn" id="9_bu6qo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bat4j"]
 font_size = 64
@@ -29,45 +16,49 @@ font_size = 124
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_l3yww"]
-offsets = PackedFloat32Array(0, 0.6)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_raq2m"]
-noise_type = 0
-frequency = 0.0215
-fractal_type = 3
-domain_warp_enabled = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qlg6c"]
-color_ramp = SubResource("Gradient_l3yww")
-noise = SubResource("FastNoiseLite_raq2m")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmdqd"]
-albedo_color = Color(0, 0.614914, 0.779297, 1)
-metallic = 0.5
-metallic_specular = 1.0
-roughness = 0.49
-emission = Color(0, 0.0333333, 1, 1)
-emission_energy_multiplier = 2.4
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_qlg6c")
-ao_light_affect = 1.0
-heightmap_scale = 0.562
-backlight = Color(1, 1, 1, 1)
-detail_blend_mode = 2
-grow_amount = -10.044
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_j0lvn"]
-material = SubResource("StandardMaterial3D_gmdqd")
-size = Vector2(100, 100)
-
 [sub_resource type="LabelSettings" id="LabelSettings_oy0yb"]
 font_size = 32
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25xtt"]
+
+[sub_resource type="Sky" id="Sky_okh5a"]
+sky_material = SubResource("ProceduralSkyMaterial_25xtt")
+
+[sub_resource type="Environment" id="Environment_bmdjw"]
+background_color = Color(0, 0.49736, 0.621094, 1)
+sky = SubResource("Sky_okh5a")
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_o1ri8"]
+colors = PackedColorArray(0.015, 0.45, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_umacu"]
+fractal_type = 3
+fractal_lacunarity = 68.83
+fractal_gain = 0.945
+fractal_ping_pong_strength = 1.11
+domain_warp_enabled = true
+domain_warp_fractal_lacunarity = 7.535
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dt87i"]
+width = 1024
+height = 1024
+color_ramp = SubResource("Gradient_o1ri8")
+noise = SubResource("FastNoiseLite_umacu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lcw2l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nh1l2"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_lcw2l")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ar8to"]
 albedo_color = Color(0.00784314, 0.278431, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_dt87i")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_nh1l2")
 
 [sub_resource type="BoxMesh" id="BoxMesh_lyo60"]
 material = SubResource("StandardMaterial3D_ar8to")
@@ -86,14 +77,88 @@ size = Vector3(16, 1, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bcama"]
 
-[sub_resource type="Gradient" id="Gradient_faxp3"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hhihx"]
-gradient = SubResource("Gradient_faxp3")
-width = 16
-height = 16
-
 [node name="Main" type="Node"]
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WinBackground" type="ColorRect" parent="HUD"]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+
+[node name="Timer" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_right = 60.0
+offset_bottom = 88.0
+label_settings = SubResource("LabelSettings_bat4j")
+
+[node name="GameWonLabel" type="Label" parent="HUD"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_6oo4t")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="RemainingMinesLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_right = 23.0
+offset_bottom = 55.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "10
+"
+
+[node name="RestartButton" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Button" type="Button" parent="HUD/RestartButton"]
+layout_mode = 0
+offset_left = -66.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 72.0
+script = ExtResource("3_2ccww")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="HUD/RestartButton/Button"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 87.0
+offset_bottom = 52.0
+text = "⟳: r"
+label_settings = SubResource("LabelSettings_oy0yb")
 
 [node name="CubeGrid" type="Node3D" parent="."]
 script = ExtResource("2_cegsg")
@@ -112,61 +177,6 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmdjw")
 
-[node name="WinBackground" type="ColorRect" parent="."]
-visible = false
-z_index = 1
-offset_right = 10000.0
-offset_bottom = 10000.0
-color = Color(0, 0, 0, 0.388235)
-
-[node name="Timer" type="Label" parent="."]
-offset_left = 20.0
-offset_right = 60.0
-offset_bottom = 23.0
-label_settings = SubResource("LabelSettings_bat4j")
-
-[node name="GameWonLabel" type="Label" parent="."]
-z_index = 10
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_6oo4t")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -0.5, 8)
-mesh = SubResource("PlaneMesh_j0lvn")
-
-[node name="RestartButton" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-
-[node name="Button" type="Button" parent="RestartButton"]
-layout_mode = 0
-offset_left = -66.0
-offset_top = 20.0
-offset_right = 20.0
-offset_bottom = 72.0
-script = ExtResource("3_2ccww")
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="RestartButton/Button"]
-layout_mode = 0
-offset_left = 12.0
-offset_right = 87.0
-offset_bottom = 52.0
-text = "⟳: r"
-label_settings = SubResource("LabelSettings_oy0yb")
-
 [node name="Surroundings" type="Node" parent="."]
 
 [node name="GrassCube" type="StaticBody3D" parent="Surroundings"]
@@ -174,7 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -5.5)
 collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube"]
-transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 16, 0, 0, -3)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube"]
@@ -185,7 +195,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 20.5)
 collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube2"]
-transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(36, 0, 0, 0, 1, 0, 0, 0, 16, 0, 0, 3)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube2"]
@@ -196,7 +206,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20.5, 
 collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube3"]
-transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(-1.57361e-06, 0, 16, 0, 1, 0, -36, 0, -6.99382e-07, 0, 0, 13)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube3"]
@@ -207,7 +217,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 
 collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surroundings/GrassCube4"]
-transform = Transform3D(16, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(-1.57361e-06, 0, 16, 0, 1, 0, -36, 0, -6.99382e-07, 0, 0, -13)
 mesh = SubResource("BoxMesh_lyo60")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/GrassCube4"]
@@ -265,22 +275,16 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surroundings/VisualCubes/VisualCube"]
 metadata/_edit_lock_ = true
 
-[node name="ExplosionEffect" parent="." instance=ExtResource("4_wedpj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9089, 0, -4.24279)
-visible = false
-
-[node name="CubePiece" parent="." instance=ExtResource("5_v8as3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.648, 0, -3.37101)
-visible = false
-
-[node name="CubeDestroyed" parent="." instance=ExtResource("6_n37dy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9209, 0, -2.3964)
-visible = false
-
 [node name="Player" parent="." instance=ExtResource("7_l2ura")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.72464, 1.41623, -1.4194)
 
-[node name="LoadingIcon" type="Sprite2D" parent="."]
-position = Vector2(22, 976)
-texture = SubResource("GradientTexture2D_hhihx")
-script = ExtResource("8_tg4vd")
+[node name="LoadShit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9807, -18.8668, 8.35186)
+
+[node name="CubeCleared" parent="LoadShit" instance=ExtResource("9_bu6qo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.566983, 0.0059166, -0.0118837)
+isLoadingCleared = true
+
+[node name="CubeExploded" parent="LoadShit" instance=ExtResource("9_bu6qo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433016, 0.0059166, -0.0118837)
+isLoadingExploded = true
