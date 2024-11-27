@@ -11,7 +11,7 @@ const CubeScene := preload("res://shared/cube/Cube.tscn")
 @onready var hud: Control = $"../HUD"
 
 @onready var camera: Camera3D = $"../Camera3D"
-@onready var player: Node3D = $"../Player"
+#@onready var player: Node3D = $"../Player"
 @onready var prevent_click_area: Control = $"../PreventClickArea"
 
 const GRID_WIDTH := 16

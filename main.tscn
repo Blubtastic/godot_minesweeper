@@ -393,39 +393,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9807, -18.8668, 8.35186)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.566983, 0.0059166, -0.0118837)
 isLoadingCleared = true
 
-[node name="RevealCube" parent="LoadShit/CubeCleared" index="5"]
-bus = &"Muted"
-
-[node name="PlaceFlag" parent="LoadShit/CubeCleared" index="6"]
-bus = &"Muted"
-
-[node name="RemoveFlag" parent="LoadShit/CubeCleared" index="7"]
-bus = &"Muted"
-
-[node name="HighlightCube" parent="LoadShit/CubeCleared" index="8"]
-bus = &"Muted"
-
 [node name="Explosion" parent="LoadShit/CubeCleared" index="9"]
-bus = &"Muted"
+bus = &"Master"
 
 [node name="CubeExploded" parent="LoadShit" instance=ExtResource("9_bu6qo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433016, 0.0059166, -0.0118837)
 isLoadingExploded = true
 
-[node name="RevealCube" parent="LoadShit/CubeExploded" index="5"]
-bus = &"Muted"
-
-[node name="PlaceFlag" parent="LoadShit/CubeExploded" index="6"]
-bus = &"Muted"
-
-[node name="RemoveFlag" parent="LoadShit/CubeExploded" index="7"]
-bus = &"Muted"
-
-[node name="HighlightCube" parent="LoadShit/CubeExploded" index="8"]
-bus = &"Muted"
-
 [node name="Explosion" parent="LoadShit/CubeExploded" index="9"]
-bus = &"Muted"
+bus = &"Master"
 
 [node name="PreventClickArea" type="Control" parent="."]
 layout_mode = 3

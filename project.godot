@@ -13,6 +13,7 @@ config_version=5
 config/name="Minesweeper"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0.171756, 0.112993, 0.200339, 1)
 
 [display]
 
@@ -40,7 +41,3 @@ pointing/android/enable_pan_and_scale_gestures=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-lights_and_shadows/directional_shadow/size=16384
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
-anti_aliasing/quality/msaa_3d=2
-anti_aliasing/directional_shadow/size=16384
