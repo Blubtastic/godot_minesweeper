@@ -396,12 +396,18 @@ isLoadingCleared = true
 [node name="Explosion" parent="LoadShit/CubeCleared" index="9"]
 bus = &"Master"
 
+[node name="Mine" parent="LoadShit/CubeCleared" index="10"]
+transform = Transform3D(0.28, 0, 0, 0, -1.22392e-08, -0.28, 0, 0.28, -1.22392e-08, 0, 0.51, 0)
+
 [node name="CubeExploded" parent="LoadShit" instance=ExtResource("9_bu6qo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433016, 0.0059166, -0.0118837)
 isLoadingExploded = true
 
 [node name="Explosion" parent="LoadShit/CubeExploded" index="9"]
 bus = &"Master"
+
+[node name="Mine" parent="LoadShit/CubeExploded" index="10"]
+transform = Transform3D(0.28, 0, 0, 0, -1.22392e-08, -0.28, 0, 0.28, -1.22392e-08, 0, 0.51, 0)
 
 [node name="PreventClickArea" type="Control" parent="."]
 layout_mode = 3

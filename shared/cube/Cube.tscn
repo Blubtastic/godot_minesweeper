@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnor6jdbe28rj"]
+[gd_scene load_steps=27 format=3 uid="uid://cnor6jdbe28rj"]
 
 [ext_resource type="Script" path="res://shared/cube/cube.gd" id="1_q4yb4"]
 [ext_resource type="BoxMesh" uid="uid://c466clxudld4s" path="res://shared/cube/cleared.tres" id="2_m3nde"]
@@ -55,6 +55,21 @@ width = 100
 height = 100
 color_ramp = SubResource("Gradient_xhxdg")
 noise = SubResource("FastNoiseLite_4qnxv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bolq"]
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_fr8oe")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oq71w"]
+material = SubResource("StandardMaterial3D_4bolq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr1w7"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_6kenv"]
+size = Vector3(0.44, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_kqvny"]
+size = Vector3(1.5, 1, 1)
 
 [node name="Cube" type="StaticBody3D" groups=["cubes"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
@@ -141,6 +156,92 @@ texture = SubResource("NoiseTexture2D_fr8oe")
 [node name="Sprite3D3" type="Sprite3D" parent="Node3D/Stains"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.497349)
 texture = SubResource("NoiseTexture2D_fr8oe")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Node3D/Stains"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5, 0)
+mesh = SubResource("PlaneMesh_oq71w")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+operation = 2
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(1.58106, 0, 0, 0, 1.58106, 0, 0, 0, 1.58106, 0, 0, 0)
+operation = 1
+radius = 0.6
+height = 0.5
+sides = 6
+material = SubResource("StandardMaterial3D_nr1w7")
+
+[node name="Spike" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.829188)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike2" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.976447, 0.215758, 9.43108e-09, 0, -4.37114e-08, 1, 0.215758, -0.976447, -4.26819e-08, -0.185894, 0, 0.782834)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike5" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.0706618, 0.9975, 4.36021e-08, -5.57639e-18, -4.37114e-08, 1, 0.9975, -0.0706618, -3.08872e-09, -0.850371, 0, 0.0868932)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike9" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.0458336, -0.998949, -4.36655e-08, -5.57639e-18, -4.37114e-08, 1, -0.998949, 0.0458336, 2.00345e-09, 0.480738, 0, -0.0421051)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike7" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.9666, -0.256289, -1.12028e-08, 2.26969e-15, -4.37114e-08, 1, -0.256289, -0.9666, -4.22514e-08, 0.241492, 1.19209e-07, 0.502117)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike11" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.917658, 0.397372, 1.73697e-08, 2.82612e-15, -4.37114e-08, 1, 0.397372, 0.917658, 4.01121e-08, -0.399909, 1.19209e-07, -0.485923)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike12" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.967006, 0.254754, 1.11356e-08, 2.82612e-15, -4.37114e-08, 1, 0.254754, 0.967006, 4.22692e-08, -0.216458, 2.38419e-07, -0.774163)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike14" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.61606, -0.787699, -3.44314e-08, 1.96724e-15, -4.37114e-08, 1, -0.787699, 0.61606, 2.69288e-08, 0.649863, 2.38419e-07, -0.514699)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike13" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.999512, 0.0312537, 1.36615e-09, 1.96724e-15, -4.37114e-08, 1, 0.0312537, 0.999512, 4.369e-08, -0.0672463, 2.38419e-07, -0.831849)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike10" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.512777, -0.858522, -3.75272e-08, 3.88166e-15, -4.37114e-08, 1, -0.858522, -0.512777, -2.24142e-08, 0.611035, 1.19209e-07, 0.363926)
+operation = 2
+mesh = SubResource("PrismMesh_6kenv")
+
+[node name="Spike3" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.605058, 0.796182, 3.48022e-08, 0, -4.37114e-08, 1, 0.796182, -0.605058, -2.64479e-08, -0.605349, -1.35899e-05, 0.465907)
+operation = 2
+mesh = SubResource("PrismMesh_kqvny")
+
+[node name="Spike6" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.958497, 0.285103, 1.24622e-08, 0, -4.37114e-08, 1, 0.285103, -0.958497, -4.18972e-08, 0.882049, -1.34706e-05, 0.553323)
+operation = 2
+mesh = SubResource("PrismMesh_kqvny")
+
+[node name="Spike4" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(-0.488713, 0.872445, 3.81358e-08, 0, -4.37114e-08, 1, 0.872445, 0.488713, 2.13623e-08, -0.76685, -1.35899e-05, -0.400021)
+operation = 2
+mesh = SubResource("PrismMesh_kqvny")
+
+[node name="Spike8" type="CSGMesh3D" parent="Node3D/Stains/CSGMesh3D"]
+transform = Transform3D(0.10366, 0.994613, 4.34759e-08, 0, -4.37114e-08, 1, 0.994613, -0.10366, -4.53115e-09, 0.567015, -1.35899e-05, -0.978106)
+operation = 2
+mesh = SubResource("PrismMesh_kqvny")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
